@@ -46,9 +46,6 @@ App({
                                             success: function (res) {
                                                 console.log(res)
                                                 wx.setStorageSync(
-                                                    'openid', res.data.openid
-                                                )
-                                                wx.setStorageSync(
                                                     'firstLogin', res.data.firstLogin
                                                 )
                                                 wx.setStorageSync(
