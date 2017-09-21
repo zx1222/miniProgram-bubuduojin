@@ -1,0 +1,41 @@
+<view class='container'>
+    <view class='banner'>
+        <image class="img-responsive banner-bg" src="../../assets/images/banner-user.jpg"></image>
+        <image class='btn-question' src='../../assets/images/btn-question.png'></image>
+        <image class='user-photo' src='{{userInfo.avatarUrl}}'></image>
+        <text class='nickname text-m2 text-white'>{{userInfo.nickName}}</text>
+    </view>
+    <view class='menu'>
+        <view class='l'>
+            <view class='count text-l2 text-red text-blod'>{{badgeCount}}
+                <text class='text-red text-m2 text-regular'>个</text>
+            </view>
+            <text class='text-s2'>徽章</text>
+        </view>
+        <view class='r'>
+            <view class='count text-l2 text-red text-blod'>{{scoreCount}}
+                <text class='text-red text-m2 text-regular'>个</text>
+            </view>
+            <text class='text-s2'>丸</text>
+        </view>
+    </view>
+    <view class='details-list'>
+        <text class='text-red text-m2 title'>收支明细</text>
+        <view class='listView'>
+            <view class='item' wx:for='{{dedailsList}}' wx:key='{{index}}'>
+                <view class='l'>
+                    <view class='text-m1'>{{item.name}}</view>
+                    <view class='text-ss'>{{item.time}}</view>
+                </view>
+                <view class='r'>
+                    <view wx:if="{{item.state==0}}" class='text-red text-l2'><text class='text-m1'>+</text>{{item.score}}
+                        <text class='text-m2'>丸</text>
+                    </view>
+                    <view wx:if="{{item.state==1}}" class='text-grey text-l2'><text class='text-m1'>-</text>{{item.score}}
+                        <text class='text-m2'>丸</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,352 @@
+/*运动banner start*/
+
+.banner {
+        width: 100%;
+        position: relative;
+        height: 450rpx;
+}
+
+.banner .banner-bg {
+        height: 100%;
+}
+
+.banner .content {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 60%;
+        left: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+}
+
+.banner .content .step-today {
+        margin-right: -40rpx;
+        padding-top: 10rpx;
+}
+
+.banner .content .btn-signin {
+        width: 50%;
+        height: 74rpx;
+        padding-top: 10rpx;
+}
+
+.banner .content .sign-history {
+        text-decoration: underline;
+        padding-top: 30rpx;
+}
+
+/*运动banner end*/
+
+/*line-chart start*/
+
+canvas {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+}
+
+.canvas-line {
+        margin-top: 450rpx;
+}
+
+/*line-chart end*/
+
+/* 运动 invite-friends start */
+
+.invite-friends {
+        width: 100%;
+        height: 600rpx;
+        background: #efefef;
+        margin-top: 200px;
+        box-shadow: 0 0 0 transparent, 0 0 7px #ecddda inset, 0 0 0 transparent, 0 0 0 transparent;
+}
+
+.invite-friends>.btn-invite {
+        width: 46%;
+        margin-left: 27%;
+        height: 110rpx;
+        margin-top: 30rpx;
+}
+.invite-friends>.mini-ball{
+        width: 34%;
+        height: 110rpx;
+        margin-left: 30%;
+       margin-top: 20rpx;
+}
+.invite-friends>.shade-invite{
+        position: absolute;
+        width:100%;
+        height: 100%;
+        top:0;
+        left: 0;
+}
+.invite-friends>.btn-know{
+        position: absolute;
+        width:24%;
+        height: 66rpx;
+        top:51%;
+        left: 38%;
+}
+
+/* 运动 invite-friends  end */
+
+/*签到成功遮罩  start*/
+
+.shade-loginSuccess, .shade-lottery {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        z-index: 2;
+}
+
+.bg {
+        width: 100%;
+        height: 100%;
+}
+
+.shade-loginSuccess>text {
+        position: absolute;
+        width: 600rpx;
+        left: 80rpx;
+        text-align: center;
+        top: 43.5%;
+}
+
+.shade-loginSuccess>.btn-receive {
+        position: absolute;
+        width: 20%;
+        height: 60rpx;
+        left: 39%;
+        top: 53%;
+}
+
+/*签到成功遮罩 end  */
+
+/*抽奖遮罩 start */
+
+.shade-lottery>.signScore {
+        position: absolute;
+        width: 78%;
+        height: 50rpx;
+        left: 11%;
+        top: 19%;
+        text-align: center;
+        font-weight: 600;
+        color: #fff;
+}
+
+.shade-lottery>.card-container {
+        position: absolute;
+        width: 650rpx;
+        height: 490rpx;
+        left: 50rpx;
+        top: 29%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+}
+
+.shade-lottery>.card-container  .card-wrapper {
+        width: 160rpx;
+        height: 220rpx;
+        margin: 0 10rpx;
+        -webkit-transform: rotateY(0deg);
+        -webkit-transform-style: preserve-3d;
+        /*让其下一级子元素拥有3D效果，背面隐藏效果。如果没有该属性子元素-webkit-backface-visibility: hidden;无效*/
+        transition: all 0.9s ease-in;
+        transform-origin: 50% 50%;
+        position: relative;
+}
+
+.shade-lottery>.card-container  .card-wrapper .card,
+.shade-lottery>.card-container  .card-wrapper .card-back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+}
+
+.shade-lottery>.card-container  .card-wrapper .card-back {
+        /* transform: rotateY(180deg);  */
+        z-index: -1;
+}
+
+.flip-scale {
+        animation: rotate-scale 1.2s ease-in-out 1;
+        animation-fill-mode: forwards;
+        -webkit-animation: rotate-scale 1.2s ease-in-out 1;
+        -webkit-animation-fill-mode: forwards;
+        filter: drop-shadow(0 0 4px rgba(192, 60, 60, 0.31));
+}
+
+@keyframes rotate-scale {
+        0% {
+                transform: rotateY(180deg);
+        }
+
+        50% {
+                transform: rotateY(270deg);
+                transform: scale(1.6);
+        }
+
+        100% {
+                transform: rotateY(360deg);
+                transform: scale(1.05);
+        }
+}
+.flip {
+        animation: rotate 1.2s ease-in-out 1;
+        animation-fill-mode: forwards;
+        -webkit-animation: rotate 1.2s ease-in-out 1;
+        -webkit-animation-fill-mode: forwards;
+}
+@keyframes rotate{
+        0% {
+                transform: rotateY(180deg);
+        }
+        100% {
+                transform: rotateY(360deg);
+        }
+}
+
+.level-up {
+        z-index: 2;
+}
+
+.level-down {
+        z-index: -1;
+}
+
+.shade-lottery>.btn-close {
+        position: absolute;
+        width: 24%;
+        left: 38%;
+        bottom: 19%;
+        height: 66rpx;
+}
+
+/*抽奖遮罩 end */
+
+/*签到历史start  */
+
+.history {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+}
+
+.history .bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+}
+.history .yearAndmonth{
+        position: absolute;
+        width: 60%;
+        left: 20%;
+        top:15%;
+        text-align: center;
+}
+
+.history .calendar {
+        position: absolute;
+        width: 650rpx;
+        height: 63%;
+        left: 50rpx;
+        bottom: 80rpx;
+        background: #ebe8e7;
+        border: 1px solid #d23626;
+}
+.history .calendar>.continuous-sign{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 4%;
+        letter-spacing: 1px
+}
+
+.history .calendar>.remember{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 13%;
+}
+.history .calendar>.day-container {
+        width: 602rpx;
+        height: 70%;
+        margin-top: 28%;
+        margin-left: 24rpx;
+        display: flex;
+        align-items: center;
+        justify-content:flex-start;
+        flex-wrap: wrap;
+}
+
+.history .calendar>.day-container .day-wrapper {
+        width: 54rpx;
+        height: 54rpx;
+        margin: 14rpx 16rpx;
+        text-align: center;
+        line-height: 54rpx;
+        font-size: 14px;
+        position: relative
+}
+.history .calendar>.day-container .day-wrapper .day{
+         position: absolute;
+         width: 100%;
+         height: 100%;
+        border-radius: 50%;
+        background: #bebcbc;
+         color: #a1a1a1;
+        box-shadow: 0 0 0 3px #afadad inset;
+        z-index: 3;
+} 
+
+.history .calendar>.day-container .day-wrapper .day.active {
+        color: #f3f2e5;
+        box-shadow: 0 0 0 3px #faada5 inset;
+        background: -webkit-linear-gradient(#f57d4c, #f41c4f); 
+        background: -o-linear-gradient(#f57d4c, #f41c4f); 
+        background: -moz-linear-gradient(#f57d4c, #f41c4f); 
+        background: linear-gradient(#f57d4c, #f41c4f); 
+}
+.history .calendar>.day-container .day-wrapper .day.active.last{
+        box-shadow: 0 0 20px rgba(249,247,62,.7) 
+}
+.history .calendar>.day-container .day-wrapper.active .link-line{
+        position: absolute;
+         width:  118rpx;
+         height: 12rpx;
+         margin-left: -32rpx;
+         top: 22rpx;
+         background: linear-gradient(to right,#fb813e, #f31151); 
+         box-shadow:0 0 0 4rpx #faada5;
+         z-index:1;
+}
+.history .calendar>.day-container .day-wrapper .link-line{
+        position: absolute;
+         width:  118rpx;
+         height: 20rpx;
+         margin-left: -32rpx;
+         top: 18rpx;
+         background:#ebe8e7;
+         z-index:2;
+}
+/*每行第一个  */
+.history .calendar>.day-container .day-wrapper:nth-child(1) .link-line,
+.history .calendar>.day-container .day-wrapper:nth-child(7n+1) .link-line{
+         margin-left: 2rpx;
+}
+/*每行最后一个  */
+.history .calendar>.day-container .day-wrapper:last-child .link-line,
+.history .calendar>.day-container .day-wrapper:nth-child(7n+7) .link-line{
+         width: 80rpx;
+}
+/*签到历史end  */
