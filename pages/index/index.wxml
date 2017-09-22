@@ -26,7 +26,7 @@
         </view>
 
         <!--签到成功遮罩-->
-        <view wx:if='{{firstLogin==0}}' class="{{firstLogin==0?'fadeIn':'fadeOut'}} shade-loginSuccess">
+        <view wx:if='{{firstLogin==0}}' class="{{firstLogin==0 ?'fadeIn':'fadeOut'}} shade-loginSuccess">
                 <image class='bg' src='../../assets/images/shade-loginSuccess.png'></image>
                 <text class='text-m2 text-red'>您昨天走了{{stepInfoList[29].step}}步，太厉害啦！
                         <br/> {{yesterdayScore}}丸呈上~

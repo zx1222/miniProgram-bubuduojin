@@ -35,12 +35,14 @@
 /*我的 menu start  */
 .menu{
     width: 100%;
-    height: 250rpx;
     background: #ffffff;
+    border-bottom: 20rpx solid #efefef;
+    padding: 10rpx 0;
+}
+.menu .wrapper{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 20rpx solid #efefef;
 }
 .menu .l,.menu .r{
     text-align: center;
@@ -55,12 +57,14 @@
 .details-list{
     width: 100%;
     height:auto;
-    display:flex;
-    flex-direction: column;
+}
+.details-list .wrapper{
+  display:flex; 
+   flex-direction: column;
 }
 .details-list .title{
-    flex: 1;
-    padding:20rpx  40rpx;
+    width: 100%;
+    padding:10rpx  40rpx;
     border-bottom: 2px solid #ecebeb;
 }
 .details-list .listView{
@@ -71,7 +75,7 @@
 .details-list .listView .item{
     width: calc(100% - 80rpx);
     display: flex;
-    height: 120rpx;
+    height: 110rpx;
     border-bottom:  2px solid #ecebeb;
     padding:0  40rpx;
     align-items: center;
