@@ -3,7 +3,7 @@
 .banner {
         width: 100%;
         position: relative;
-        height: 450rpx;
+        height: 225px;
 }
 
 .banner .banner-bg {
@@ -49,10 +49,12 @@ canvas {
         left: 0;
         right: 0;
         margin: auto;
+        box-shadow: 0 0 0 transparent, 0 0 7px rgba(212, 86, 59 , .28), 0 0 0 transparent, 0 0 7px rgba(212, 86, 59 , .2) ;
 }
 
 .canvas-line {
-        margin-top: 450rpx;
+        margin-top: 235px;
+          
 }
 
 /*line-chart end*/
@@ -63,8 +65,7 @@ canvas {
         width: 100%;
         height: 600rpx;
         background: #efefef;
-        margin-top: 200px;
-        box-shadow: 0 0 0 transparent, 0 0 7px #ecddda inset, 0 0 0 transparent, 0 0 0 transparent;
+        margin-top: 210px;
 }
 
 .invite-friends>.btn-invite {

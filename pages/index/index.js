@@ -161,7 +161,6 @@ Page({
         context.setLineWidth(2);
 
 
-
         var opts = {
             width: w,
             height: h,
