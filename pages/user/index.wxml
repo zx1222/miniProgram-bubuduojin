@@ -1,14 +1,17 @@
-<view class='container'>
+<view class='container' disable-scroll="true">
+    <!--banner  -->
     <view class='banner'>
         <image class="img-responsive banner-bg" src="../../assets/images/banner-user.jpg"></image>
         <image class='btn-question' src='../../assets/images/btn-question.png'></image>
         <image class='user-photo' src='{{userInfo.avatarUrl}}'></image>
         <text class='nickname text-m2 text-white'>{{userInfo.nickName}}</text>
     </view>
+
+    <!--menu  -->
     <view class='menu'>
         <view class='wrapper'>
             <view class='l'>
-                <view class='count text-l2 text-red text-blod'>{{badgeCount}}
+                <view class='count text-l2 text-red text-bold' bindtap='showBadge'>{{badgeCount}}
                     <text class='text-red text-m2 text-regular'>个</text>
                 </view>
                 <text class='text-s2'>徽章</text>
@@ -21,6 +24,8 @@
             </view>
         </view>
     </view>
+
+    <!--收支明细  -->
     <view class='details-list'>
         <view class='wrapper'>
             <text class='text-red text-m2 title'>收支明细</text>
@@ -49,4 +54,21 @@
             </view>
         </view>
     </view>
+
+    <!--  徽章悬浮窗-->
+      <scroll-view wx:if='{{!hideBadge}}' class='shade-badge'>  
+     <!-- <scroll-view class='shade-badge'>  -->
+        <view class='badge-list'>
+            <view class='category-wrapper' wx:for='{{badgeList}}'>
+                <view class='title text-red text-m1'>{{item.categoryName}}</view>
+                <view class='item-wrapper'>
+                    <view class='item' wx:for='{{item.list}}'>
+                        <image src='{{item.url}}'></image>
+                        <view class='text-s2 text-bold'>{{item.name}}</view>
+                        <text class='text-ss text-grey'>{{item.content}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
 </view>

@@ -63,7 +63,7 @@
    flex-direction: column;
 }
 .details-list .title{
-    width: 100%;
+    width: calc(100% - 80rpx);
     padding:10rpx  40rpx;
     border-bottom: 2px solid #ecebeb;
 }
@@ -112,3 +112,42 @@
   vertical-align: middle;
 }
 /*收支明细 end  */
+
+/*运动徽章悬浮窗 start  */
+.shade-badge{
+    position: absolute;
+    width: 86%;
+    height: 86%;
+    left: 7%;
+    top:8%;
+    background: #ffffff;
+    z-index: 2;
+    box-shadow: 0 0 38rpx rgba(225,52,27,.5);
+}
+.category-wrapper{
+    padding: 50rpx 30rpx;
+}
+.category-wrapper .title{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40rpx;
+}
+.category-wrapper  .item-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.category-wrapper  .item-wrapper .item{
+    width: 150rpx;
+    height: 210rpx;
+    margin: 10rpx 20rpx;
+    position: relative;
+    text-align: center;
+}
+.category-wrapper  .item-wrapper .item image{
+    width: 130rpx;
+    height: 130rpx;
+    padding: 5rpx;
+}
+/*运动徽章悬浮窗 end  */

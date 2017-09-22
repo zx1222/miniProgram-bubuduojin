@@ -40,7 +40,7 @@ App({
                                         }
                                         wx.request({
                                             //获取openid接口
-                                            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports',
+                                            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/identify',
                                             data: data,
                                             method: 'GET',
                                             success: function (res) {
@@ -50,6 +50,9 @@ App({
                                                 )
                                                 wx.setStorageSync(
                                                     'stepInfoList', res.data.stepInfoList
+                                                )
+                                                wx.setStorageSync(
+                                                    'identification', res.data.identification
                                                 )
                                             }
                                         })

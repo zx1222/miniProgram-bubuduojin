@@ -43,7 +43,7 @@ page{
   font-size: 28rpx;
 }
 .text-ss{
-  font-size: 24rpx;
+  font-size: 20rpx;
 }
 .text-white{
   color: #fefefe;
@@ -60,7 +60,7 @@ page{
 .text-grey{
     color: #717070;
 }
-.text-blod{
+.text-bold{
     font-weight: 600;
 }
 .text-regular{
