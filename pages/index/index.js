@@ -230,7 +230,7 @@ Page({
         // 绘制节点圆形区域
         opts.categories.forEach(function (item, index) {
             context.moveTo(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)));
-            context.arc(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)), 4, 0, 2 * Math.PI, false);
+            context.arc(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)), 3, 0, 2 * Math.PI, false);
         });
         context.closePath();
         context.fill();
@@ -242,7 +242,7 @@ Page({
         context.setFillStyle("#fae4e4");
         opts.categories.forEach(function (item, index) {
             context.moveTo(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)) + 12);
-            context.arc(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)) + 12, 3.5, 0, 2 * Math.PI, false);
+            context.arc(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)) + 12, 2.5, 0, 2 * Math.PI, false);
         });
         context.closePath();
         context.fill();
