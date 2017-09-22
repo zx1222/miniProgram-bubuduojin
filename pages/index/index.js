@@ -161,9 +161,6 @@ Page({
     drawLineChart: function (w, h, id, stepList, categories, steps) {
         // 获取绘图上下文 context
         var context = wx.createContext();
-        // 设置线宽
-        context.setLineWidth(2);
-
 
         var opts = {
             width: w,
@@ -176,18 +173,19 @@ Page({
 
 
         // 绘制区域背景色
-        context.beginPath();
+        // context.beginPath();
         var my_gradient = context.createLinearGradient(0, 0, 0, 170);
-        // my_gradient.addColorStop(0, 'white');
-        // my_gradient.addColorStop(1, '#f9ebeb');
+        my_gradient.addColorStop(0, 'white');
+        my_gradient.addColorStop(1, '#f9ebeb');
         context.setFillStyle(my_gradient);
         context.fillRect(10, 0, eachSpacing, 200);
         context.fillRect(10 + eachSpacing * 2, 0, eachSpacing, 200);
         context.fillRect(10 + eachSpacing * 4, 0, eachSpacing, 200);
         context.fillRect(10 + eachSpacing * 6, 0, eachSpacing, 200);
-        context.closePath();
+        // context.closePath();
         context.fill();
-        context.stroke();
+        // context.stroke();
+        context.draw()
 
 
         //获取最近7天的最大步数作为绘制canvas的浮动参考 
@@ -200,6 +198,8 @@ Page({
         //对当前路径进行描边
         //将绘制折线图的区域设置高度为130 也就是上面留30 下面40
         context.beginPath()
+        // 设置线宽
+        context.setLineWidth(2);
         // 设置描边颜色
         context.setStrokeStyle("#db493a");
         opts.categories.forEach(function (item, index) {
@@ -213,8 +213,8 @@ Page({
         context.stroke();
         // 绘制折线投影
         context.beginPath();
-        // context.setStrokeStyle("#faeded");
-
+        context.setLineWidth(2);
+        context.setStrokeStyle("#faeded");
         opts.categories.forEach(function (item, index) {
             if (index == 0) {
                 context.moveTo(eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23].step / (max_step + 6000)) + 12);
@@ -246,8 +246,8 @@ Page({
 
         //绘制节点投影
         context.beginPath();
-        // context.setStrokeStyle("#fae4e4");
-        // context.setFillStyle("#fae4e4");
+        context.setStrokeStyle("#fae4e4");
+        context.setFillStyle("#fae4e4");
         opts.categories.forEach(function (item, index) {
             context.moveTo(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)) + 12);
             context.arc(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)) + 12, 2.5, 0, 2 * Math.PI, false);
@@ -303,7 +303,7 @@ Page({
         context.setFontSize(12);
         context.font = "bold";
         // 设置字体填充颜色
-    
+        context.setFillStyle("#db493a");
         opts.categories.forEach(function (item, index) {
             var offset = eachSpacing / 2 - mesureText(item) / 2;
             context.fillText(item, points[index] - 5 + offset + 10, startY + 20);
@@ -324,7 +324,7 @@ Page({
         //绘制1W步标准的蚂蚁线
         //没个单独的蚂蚁线长10 一共的数量用宽度/10向上取整 中间位置不绘制
         for (var i = 0; i < Math.ceil(opts.width / 10); i++) {
-            if (i % 2 == 0 && i != Math.ceil(opts.width / 10) / 2 && i != Math.ceil(opts.width / 10) / 2 + 1 && i != Math.ceil(opts.width / 10) / 2 - 1) {
+            if (i % 2 == 0 && i != Math.ceil(opts.width / 10) / 2 && i != Math.ceil(opts.width / 10) / 2 + 1 && i != Math.ceil(opts.width / 10) / 2 - 1 && i!=Math.ceil(opts.width / 10) / 2-3) {
                 context.setStrokeStyle("#f6a9ae");
                 context.moveTo(10 * i, opts.height - 40 - 130 * (10000 / (max_step + 6000)) - 5);
                 context.lineTo(10 * (i + 1), opts.height - 40 - 130 * (10000 / (max_step + 6000)) - 5);
@@ -333,7 +333,7 @@ Page({
 
         context.setFontSize(12);
         context.font = "bold";
-        // context.setFillStyle("#f6a9ae");
+        context.setFillStyle("#f6a9ae");
         var offset = mesureText('1W') / 2;
         // 10是两边留白
         context.fillText('1W', opts.width / 2 - offset, opts.height - 40 - 130 * (10000 / (max_step + 6000)))
