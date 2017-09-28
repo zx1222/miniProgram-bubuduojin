@@ -5,17 +5,17 @@ var app = getApp()
 
 Page({
     data: {
-        identification:null,
+        identification: null,
         userInfo: {},
         openid: null,
         stepInfoList: null,
         firstLogin: 1,
 
-        logIn: false,
-        // 昨日结算积分
+        // 昨日结算积分  按前一天的步数计算得出
         yesterdayScore: null,
+        // sign: false,
         //签到随机获得的积分
-        signScore: null,
+        signScore: 0,
 
         lottery: false,
         lotteryRun: false,
@@ -23,38 +23,39 @@ Page({
         lotteryYet: false,
         activeIndex: null,
         windowWidth: wx.getSystemInfoSync().windowWidth,
-        // cardArr: [
-        //     {
-        //         id: 0,
-        //         url: '../../assets/images/lottery-card.png'
-        //     },
-        //     {
-        //         id: 1,
-        //         url: '../../assets/images/lottery-card.png'
-        //     },
-        //     {
-        //         id: 2,
-        //         url: '../../assets/images/lottery-card.png'
-        //     },
-        //     {
-        //         id: 3,
-        //         url: '../../assets/images/lottery-card.png'
-        //     },
-        //     {
-        //         id: 4,
-        //         url: '../../assets/images/lottery-card.png'
-        //     },
-        //     {
-        //         id: 5,
-        //         url: '../../assets/images/lottery-card.png'
-        //     }
-        // ],
+        cardArr: [
+            {
+                id: 0,
+                url: '../../assets/images/lottery-card.png'
+            },
+            {
+                id: 1,
+                url: '../../assets/images/lottery-card.png'
+            },
+            {
+                id: 2,
+                url: '../../assets/images/lottery-card.png'
+            },
+            {
+                id: 3,
+                url: '../../assets/images/lottery-card.png'
+            },
+            {
+                id: 4,
+                url: '../../assets/images/lottery-card.png'
+            },
+            {
+                id: 5,
+                url: '../../assets/images/lottery-card.png'
+            }
+        ],
         // 分享
         invite: false,
-        showHistory: false,
+        historyShow: false,
         monthArr: [],
         yearAndmonth: '',
         signArr: [1, 3, 4, 5, 7, 8, 9, 10, 14, 15],
+        // 连续签到的天数
         continuousLen: null
     },
     //事件处理函数
@@ -71,6 +72,7 @@ Page({
             openid: openid,
             identification: identification
         })
+        console.log(this.data.openid)
         //调用应用实例的方法获取全局数据
         app.getUserInfo(function (userInfo) {
             //更新数据
@@ -98,7 +100,7 @@ Page({
                 }
             })
         })
-
+        // 格式化日期
         var stepInfoList = JSON.parse(wx.getStorageSync('stepInfoList')).stepInfoList
         function formateDate(uData) {
             var myDate = new Date(uData * 1000);
@@ -125,6 +127,7 @@ Page({
     },
 
     onReady: function () {
+        console.log(this.data.stepInfoList)
         var options = {
             w: this.data.windowWidth,
             h: 200,
@@ -151,7 +154,6 @@ Page({
         }
         this.drawLineChart(options.w, options.h, options.id, options.stepList, options.categories, options.steps);
         this.setData({
-            logIn: true,
             yesterdayScore: Math.floor(this.data.stepInfoList[29].step / 5000)
         })
     },
@@ -173,7 +175,7 @@ Page({
 
 
         // 绘制区域背景色
-        // context.beginPath();
+        context.beginPath();
         var my_gradient = context.createLinearGradient(0, 0, 0, 170);
         my_gradient.addColorStop(0, 'white');
         my_gradient.addColorStop(1, '#f9ebeb');
@@ -182,10 +184,10 @@ Page({
         context.fillRect(10 + eachSpacing * 2, 0, eachSpacing, 200);
         context.fillRect(10 + eachSpacing * 4, 0, eachSpacing, 200);
         context.fillRect(10 + eachSpacing * 6, 0, eachSpacing, 200);
-        // context.closePath();
+
         context.fill();
         // context.stroke();
-        context.draw()
+        context.closePath();
 
 
         //获取最近7天的最大步数作为绘制canvas的浮动参考 
@@ -211,6 +213,7 @@ Page({
             }
         });
         context.stroke();
+        context.closePath();
         // 绘制折线投影
         context.beginPath();
         context.setLineWidth(2);
@@ -224,14 +227,13 @@ Page({
             }
         });
         context.stroke();
-        
-
+        context.closePath();
 
         //绘制节点圆点 
         context.beginPath();
 
         // 设置填充颜色
-   
+
         context.setStrokeStyle("#db493a");
         context.setFillStyle("#db493a");
         // 绘制节点圆形区域
@@ -239,10 +241,9 @@ Page({
             context.moveTo(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)));
             context.arc(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)), 3, 0, 2 * Math.PI, false);
         });
-     
-        context.closePath();
         context.fill();
         context.stroke();
+        context.closePath();
 
         //绘制节点投影
         context.beginPath();
@@ -252,10 +253,9 @@ Page({
             context.moveTo(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)) + 12);
             context.arc(eachSpacing * index + eachSpacing / 2 + 10, opts.height - 40 - 130 * (stepList[23 + index].step / (max_step + 6000)) + 12, 2.5, 0, 2 * Math.PI, false);
         });
-        
-        context.closePath();
         context.fill();
         context.stroke();
+        context.closePath();
 
 
 
@@ -295,7 +295,7 @@ Page({
         opts.categories.forEach(function (item, index) {
             points.push(startX + index * eachSpacing);
         });
-        points.push(offset );
+        points.push(offset);
 
         // 折线图日期坐标
         context.beginPath();
@@ -314,17 +314,16 @@ Page({
             var offset = eachSpacing / 2 - mesureText(item) / 2;
             context.fillText(item, points[index] - 3 + offset + 10, 30);
         });
-        // context.setFillStyle('#e43738');
-
-        context.closePath();
         context.fill()
         context.stroke();
+        context.closePath();
 
 
         //绘制1W步标准的蚂蚁线
         //没个单独的蚂蚁线长10 一共的数量用宽度/10向上取整 中间位置不绘制
+        context.beginPath();
         for (var i = 0; i < Math.ceil(opts.width / 10); i++) {
-            if (i % 2 == 0 && i != Math.ceil(opts.width / 10) / 2 && i != Math.ceil(opts.width / 10) / 2 + 1 && i != Math.ceil(opts.width / 10) / 2 - 1 && i!=Math.ceil(opts.width / 10) / 2-3) {
+            if (i % 2 == 0 && i != Math.ceil(opts.width / 10) / 2 && i != Math.ceil(opts.width / 10) / 2 + 1 && i != Math.ceil(opts.width / 10) / 2 - 1 && i != Math.ceil(opts.width / 10) / 2 - 3) {
                 context.setStrokeStyle("#f6a9ae");
                 context.moveTo(10 * i, opts.height - 40 - 130 * (10000 / (max_step + 6000)) - 5);
                 context.lineTo(10 * (i + 1), opts.height - 40 - 130 * (10000 / (max_step + 6000)) - 5);
@@ -337,31 +336,15 @@ Page({
         var offset = mesureText('1W') / 2;
         // 10是两边留白
         context.fillText('1W', opts.width / 2 - offset, opts.height - 40 - 130 * (10000 / (max_step + 6000)))
+        context.fill()
         context.stroke();
+        context.closePath();
 
 
         wx.drawCanvas({
             canvasId: id,
             actions: context.getActions()
         });
-    },
-
-    // 收下昨日结算
-    receiveLogIn: function () {
-        this.setData({
-            logIn: false,
-        })
-        var data={
-            score: this.data.yesterdayScore,
-            identification: this.data.identification
-        }
-        wx.request({
-            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/settlement',
-            data: data,
-            method: 'GET',
-            success: function (res) {
-            }
-        })
     },
 
     //带权重的数组取值
@@ -459,6 +442,49 @@ Page({
         return nowLength
     },
 
+    // 收下昨日结算
+    receiveLogIn: function () {
+        this.setData({
+            firstLogin: 1,
+        })
+        var options = {
+            w: this.data.windowWidth,
+            h: 200,
+            id: 'canvas-line',
+            stepList: this.data.stepInfoList,
+            categories: [
+                this.data.stepInfoList[23].timestamp,
+                this.data.stepInfoList[24].timestamp,
+                this.data.stepInfoList[25].timestamp,
+                this.data.stepInfoList[26].timestamp,
+                this.data.stepInfoList[27].timestamp,
+                this.data.stepInfoList[28].timestamp,
+                this.data.stepInfoList[29].timestamp
+            ],
+            steps: [
+                this.data.stepInfoList[23].step,
+                this.data.stepInfoList[24].step,
+                this.data.stepInfoList[25].step,
+                this.data.stepInfoList[26].step,
+                this.data.stepInfoList[27].step,
+                this.data.stepInfoList[28].step,
+                this.data.stepInfoList[29].step
+            ]
+        }
+        this.drawLineChart(options.w, options.h, options.id, options.stepList, options.categories, options.steps);
+        var data = {
+            score: this.data.yesterdayScore,
+            identification: this.data.identification
+        }
+        wx.request({
+            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/settlement',
+            data: data,
+            method: 'GET',
+            success: function (res) {
+            }
+        })
+    },
+
     // 邀请好友
     invite: function () {
         this.setData({
@@ -473,32 +499,12 @@ Page({
         })
     },
 
-    // 点击今日打卡
-    signIn: function () {
-        var arr = [
-            {
-                num: 1,
-                weight: 20
-            }, {
-                num: 2,
-                weight: 20
-            }, {
-                num: 3,
-                weight: 20
-            }, {
-                num: 4,
-                weight: 20
-            }, {
-                num: 5,
-                weight: 20
-            }];
-        var obj = this.weight_rand(arr)
-
-        var num = obj.num
-        console.log(num)
+    // 签到打卡
+    sign: function (e) {
+        var arr = [{ name: '1', weight: 2 }, { name: '2', weight: 2 }, { name: '3', weight: 2 },{name:'4',weight:2},{name:'5',weight:2}];
         this.setData({
             lottery: true,
-            signScore: num
+            signScore: this.weight_rand(arr).name
         })
     },
 
@@ -522,12 +528,37 @@ Page({
             activeIndex: null,
             lottery: false,
         })
+        var options = {
+            w: this.data.windowWidth,
+            h: 200,
+            id: 'canvas-line',
+            stepList: this.data.stepInfoList,
+            categories: [
+                this.data.stepInfoList[23].timestamp,
+                this.data.stepInfoList[24].timestamp,
+                this.data.stepInfoList[25].timestamp,
+                this.data.stepInfoList[26].timestamp,
+                this.data.stepInfoList[27].timestamp,
+                this.data.stepInfoList[28].timestamp,
+                this.data.stepInfoList[29].timestamp
+            ],
+            steps: [
+                this.data.stepInfoList[23].step,
+                this.data.stepInfoList[24].step,
+                this.data.stepInfoList[25].step,
+                this.data.stepInfoList[26].step,
+                this.data.stepInfoList[27].step,
+                this.data.stepInfoList[28].step,
+                this.data.stepInfoList[29].step
+            ]
+        }
+        this.drawLineChart(options.w, options.h, options.id, options.stepList, options.categories, options.steps);
     },
 
     /*签到历史  */
     showHistory: function () {
         this.setData({
-            showHistory: true
+            historyShow: true
         })
         // 获取当前月份天数
         function mGetDate() {

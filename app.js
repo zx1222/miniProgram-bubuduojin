@@ -38,6 +38,7 @@ App({
                                             iv: iv,
                                             grant_type: 'authorization_code'
                                         }
+                                        console.log(data)
                                         wx.request({
                                             //获取openid接口
                                             url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/identify',
@@ -45,8 +46,12 @@ App({
                                             method: 'GET',
                                             success: function (res) {
                                                 console.log(res)
+                                                // that.globalData.openid = res.data.openid
+                                                // that.globalData.firstLogin = res.data.firstLogin
+                                                that.globalData.stepInfoList = res.data.stepInfoList
+                                                that.globalData.identification = res.data.identification
                                                 wx.setStorageSync(
-                                                    'firstLogin', res.data.firstLogin
+                                                    'openid', res.data.openid
                                                 )
                                                 wx.setStorageSync(
                                                     'stepInfoList', res.data.stepInfoList
@@ -67,6 +72,8 @@ App({
     },
     globalData: {
         userInfo: null,
-        openid: null
+        openid: null,
+        stepInfoList: null,
+        identification: null
     }
 })
