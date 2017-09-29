@@ -2,6 +2,7 @@
 //获取应用实例
 var fun_base64 = require('../../utils/base64.js')
 var app = getApp()
+// var lineChart = require('../../components/lineChart/index.js');
 
 Page({
     data: {
@@ -13,7 +14,8 @@ Page({
 
         // 昨日结算积分  按前一天的步数计算得出
         yesterdayScore: null,
-        // sign: false,
+        // 今日签到标识
+        sign: 0,
         //签到随机获得的积分
         signScore: 0,
 
@@ -485,26 +487,30 @@ Page({
         })
     },
 
-    // 邀请好友
-    invite: function () {
-        this.setData({
-            invite: true
-        })
-    },
-
-    // 关闭邀请好友遮罩
-    closeInvite: function () {
-        this.setData({
-            invite: false
-        })
-    },
-
     // 签到打卡
     sign: function (e) {
-        var arr = [{ name: '1', weight: 2 }, { name: '2', weight: 2 }, { name: '3', weight: 2 },{name:'4',weight:2},{name:'5',weight:2}];
+        var arr = [{ name: '1', weight: 2 }, { name: '2', weight: 2 }, { name: '3', weight: 2 }, { name: '4', weight: 2 }, { name: '5', weight: 2 }];
         this.setData({
             lottery: true,
             signScore: this.weight_rand(arr).name
+        })
+        var data = {
+            identification: this.data.identification,
+            score: this.data.signScore
+        }
+        var identification = this.data.identification
+        var that=this
+        wx.request({
+            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/sign',
+            data: data,
+            method: 'GET',
+            success: function (res) {
+                    // 0是今天第一次签到 1是已经签到
+                    that.setData({
+                        sign:res.data.code
+                    })
+                    console.log(that.data.sign)
+            }
         })
     },
 
@@ -555,7 +561,7 @@ Page({
         this.drawLineChart(options.w, options.h, options.id, options.stepList, options.categories, options.steps);
     },
 
-    /*签到历史  */
+    // 签到历史
     showHistory: function () {
         this.setData({
             historyShow: true
@@ -609,5 +615,18 @@ Page({
             continuousLen: continuousLen
         })
     },
+    // 邀请好友
+    invite: function () {
+        this.setData({
+            invite: true
+        })
+    },
+
+    // 关闭邀请好友遮罩
+    closeInvite: function () {
+        this.setData({
+            invite: false
+        })
+    }
 })
 

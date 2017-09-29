@@ -8,11 +8,12 @@
             <view class="text-l1 text-white step-today">{{stepInfoList[30].step}}
                 <text class="text-white text-l2">步</text>
             </view>
-            <image wx:if="{{!sign}}" class="btn-signin" bindtap='sign' src="../../assets/images/btn-signIn.png"></image>
-            <image wx:if="{{sign}}" class="btn-signin" src="../../assets/images/btn-sign-yet.png"></image>
+            <image wx:if="{{sign==0}}" class="btn-signin" bindtap='sign' src="../../assets/images/btn-signIn.png"></image>
+            <image wx:if="{{sign!=0}}" class="btn-signin" src="../../assets/images/btn-sign-yet.png"></image>
             <text class="text-m1 text-white sign-history" bindtap='showHistory'>打卡历史</text>
         </view>
     </view>
+
 
     <!--昨日结算-->
     <view wx:if='{{firstLogin==0}}' class="{{firstLogin==0 ?'fadeIn':'fadeOut'}} shade-loginSuccess">
@@ -23,17 +24,13 @@
         <image class='btn-receive' bindtap='receiveLogIn' src='../../assets/images/btn-receive.png'></image>
     </view>
 
+
     <!--一周运动数据折线图画布  -->
     <!--不是第一次登录渲染 不然由于层级问题会遮盖 -->
-    <canvas wx:if='{{firstLogin==1&&!historyShow&&!lottery}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" canvas-id="canvas-line"></canvas>
+     <!-- 引入子组件wxml -->
+  <!-- <include wx:if='{{firstLogin==1&&!historyShow&&!lottery}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" src="../../components/lineChart/index.wxml" /> -->
+     <canvas wx:if='{{firstLogin==1&&!historyShow&&!lottery}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" canvas-id="canvas-line"></canvas> 
 
-    <!--邀请好友  -->
-    <view class='invite-friends'>
-        <image class='btn-invite' src='../../assets/images/btn-invite.png' bindtap='invite'></image>
-        <image class='mini-ball' src='../../assets/images/mini-ball.png'></image>
-        <image wx:if='{{invite}}' class='shade-invite' src='../../assets/images/shade-invite.png'></image>
-        <image wx:if='{{invite}}' bindtap='closeInvite' class='btn-know' src='../../assets/images/btn-know.png'></image>
-    </view>
 
     <!--签到抽奖 -->
     <view wx:if='{{lottery}}' class="{{lottery?'fadeIn':'fadeOut'}} shade-lottery">
@@ -48,6 +45,7 @@
         </view>
         <image class='btn-close ' bindtap='closeLottery' src='../../assets/images/btn-close.png'></image>
     </view>
+
 
     <!--签到历史  -->
     <view class="{{historyShow?'fadeIn':''}} history" wx:if='{{historyShow}}'>
@@ -64,5 +62,14 @@
                 </view>
             </view>
         </view>
+    </view>
+
+
+       <!--邀请好友  -->
+    <view class='invite-friends'>
+        <image class='btn-invite' src='../../assets/images/btn-invite.png' bindtap='invite'></image>
+        <image class='mini-ball' src='../../assets/images/mini-ball.png'></image>
+        <image wx:if='{{invite}}' class='shade-invite' src='../../assets/images/shade-invite.png'></image>
+        <image wx:if='{{invite}}' bindtap='closeInvite' class='btn-know' src='../../assets/images/btn-know.png'></image>
     </view>
 </view>

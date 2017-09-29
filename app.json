@@ -1,41 +1,42 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/logs/logs",
-    "pages/discover/index",
-    "pages/user/index"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
-  },
-  "tabBar": {
-    "color": "#a0a0a0",
-    "selectedColor": "#e96465",
-    "borderStyle": "white",
-    "backgroundColor": "#fafafa",
-    "list": [
-      {
-        "selectedIconPath": "assets/images/run-active.png",
-        "iconPath": "assets/images/run.png",
-        "pagePath": "pages/index/index",
-        "text": "运动"
-      },
-      {
-        "selectedIconPath": "assets/images/discover-active.png",
-        "iconPath": "assets/images/discover.png",
-        "pagePath": "pages/discover/index",
-        "text": "发现"
-      },
-      {
-        "selectedIconPath": "assets/images/user-active.png",
-        "iconPath": "assets/images/user.png",
-        "pagePath": "pages/user/index",
-        "text": "我的"
-      }
-    ]
-  }
+    "pages": [
+        "pages/index/index",
+        "pages/logs/logs",
+        "pages/discover/index",
+        "pages/user/index",
+        "components/lineChart/lineChart"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "WeChat",
+        "navigationBarTextStyle": "black",
+        "enablePullDownRefresh": true
+    },
+    "tabBar": {
+        "color": "#a0a0a0",
+        "selectedColor": "#e96465",
+        "borderStyle": "white",
+        "backgroundColor": "#fafafa",
+        "list": [
+            {
+                "selectedIconPath": "assets/images/run-active.png",
+                "iconPath": "assets/images/run.png",
+                "pagePath": "pages/index/index",
+                "text": "运动"
+            },
+            {
+                "selectedIconPath": "assets/images/discover-active.png",
+                "iconPath": "assets/images/discover.png",
+                "pagePath": "pages/discover/index",
+                "text": "发现"
+            },
+            {
+                "selectedIconPath": "assets/images/user-active.png",
+                "iconPath": "assets/images/user.png",
+                "pagePath": "pages/user/index",
+                "text": "我的"
+            }
+        ]
+    }
 }
