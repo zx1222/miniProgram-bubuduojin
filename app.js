@@ -59,6 +59,9 @@ App({
                                                 wx.setStorageSync(
                                                     'identification', res.data.identification
                                                 )
+                                                wx.setStorageSync(
+                                                    'firstSign', res.data.firstSign
+                                                )
                                             }
                                         })
                                     }

@@ -70,11 +70,15 @@ Page({
         var that = this
         var openid = wx.getStorageSync('openid')
         var identification = wx.getStorageSync('identification')
+        var sign = wx.getStorageSync('firstSign')
+        console.log(sign)
         this.setData({
             openid: openid,
-            identification: identification
+            identification: identification,
+            sign:sign
         })
         console.log(this.data.openid)
+        console.log(this.data.sign)
         //调用应用实例的方法获取全局数据
         app.getUserInfo(function (userInfo) {
             //更新数据
@@ -499,17 +503,16 @@ Page({
             score: this.data.signScore
         }
         var identification = this.data.identification
-        var that=this
+        var that = this
         wx.request({
             url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/sign',
             data: data,
             method: 'GET',
             success: function (res) {
-                    // 0是今天第一次签到 1是已经签到
-                    that.setData({
-                        sign:res.data.code
-                    })
-                    console.log(that.data.sign)
+                // 0是今天第一次签到 1是已经签到
+                that.setData({
+                    sign: res.data.code
+                })
             }
         })
     },
