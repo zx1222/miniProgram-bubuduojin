@@ -10,12 +10,12 @@ Page({
         userInfo: {},
         openid: null,
         stepInfoList: null,
-        firstLogin: 1,
+        firstLogin:1,
 
         // 昨日结算积分  按前一天的步数计算得出
-        yesterdayScore: null,
+        daily: null,
         // 今日签到标识
-        sign: 0,
+        firstSign: wx.getStorageSync('firstSign'),
         //签到随机获得的积分
         signScore: 0,
 
@@ -68,17 +68,6 @@ Page({
     },
     onLoad: function () {
         var that = this
-        var openid = wx.getStorageSync('openid')
-        var identification = wx.getStorageSync('identification')
-        var sign = wx.getStorageSync('firstSign')
-        console.log(sign)
-        this.setData({
-            openid: openid,
-            identification: identification,
-            sign:sign
-        })
-        console.log(this.data.openid)
-        console.log(this.data.sign)
         //调用应用实例的方法获取全局数据
         app.getUserInfo(function (userInfo) {
             //更新数据
@@ -103,9 +92,22 @@ Page({
                             firstLogin: res.data.firstLogin
                         })
                     }
+                    console.log(res.data.firstLogin)
                 }
             })
         })
+        var openid = wx.getStorageSync('openid')
+        var identification = wx.getStorageSync('identification')
+        // var firstSign = wx.getStorageSync('firstSign')
+        // console.log(firstSign)
+        this.setData({
+            openid: openid,
+            identification: identification,
+            // firstSign: firstSign
+        })
+        console.log(this.data.openid)
+        console.log(this.data.firstSign)
+     
         // 格式化日期
         var stepInfoList = JSON.parse(wx.getStorageSync('stepInfoList')).stepInfoList
         function formateDate(uData) {
@@ -160,7 +162,7 @@ Page({
         }
         this.drawLineChart(options.w, options.h, options.id, options.stepList, options.categories, options.steps);
         this.setData({
-            yesterdayScore: Math.floor(this.data.stepInfoList[29].step / 5000)
+            daily: Math.floor(this.data.stepInfoList[29].step / 5000)
         })
     },
 
@@ -479,7 +481,7 @@ Page({
         }
         this.drawLineChart(options.w, options.h, options.id, options.stepList, options.categories, options.steps);
         var data = {
-            score: this.data.yesterdayScore,
+            score: this.data.daily,
             identification: this.data.identification
         }
         wx.request({
@@ -511,7 +513,7 @@ Page({
             success: function (res) {
                 // 0是今天第一次签到 1是已经签到
                 that.setData({
-                    sign: 1
+                    firstSign: 1
                 })
             }
         })
@@ -618,6 +620,7 @@ Page({
             continuousLen: continuousLen
         })
     },
+    
     // 邀请好友
     invite: function () {
         this.setData({

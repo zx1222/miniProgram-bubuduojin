@@ -8,8 +8,8 @@
             <view class="text-l1 text-white step-today">{{stepInfoList[30].step}}
                 <text class="text-white text-l2">步</text>
             </view>
-            <image wx:if="{{sign==0}}" class="btn-signin" bindtap='sign' src="../../assets/images/btn-signIn.png"></image>
-            <image wx:if="{{sign!=0}}" class="btn-signin" src="../../assets/images/btn-sign-yet.png"></image>
+            <image wx:if="{{firstSign==0}}" class="btn-signin" bindtap='sign' src="../../assets/images/btn-signIn.png"></image>
+            <image wx:if="{{firstSign!=0}}" class="btn-signin" src="../../assets/images/btn-sign-yet.png"></image>
             <text class="text-m1 text-white sign-history" bindtap='showHistory'>打卡历史</text>
         </view>
     </view>
@@ -19,7 +19,7 @@
     <view wx:if='{{firstLogin==0}}' class="{{firstLogin==0 ?'fadeIn':'fadeOut'}} shade-loginSuccess">
         <image class='bg' src='../../assets/images/shade-loginSuccess.png'></image>
         <text class='text-m2 text-red'>您昨天走了{{stepInfoList[29].step}}步，太厉害啦！
-                        <br/> {{yesterdayScore}}丸呈上~
+                        <br/> {{daily}}丸呈上~
                 </text>
         <image class='btn-receive' bindtap='receiveLogIn' src='../../assets/images/btn-receive.png'></image>
     </view>
