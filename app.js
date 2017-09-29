@@ -45,7 +45,6 @@ App({
                                             data: data,
                                             method: 'GET',
                                             success: function (res) {
-                                                console.log(res)
                                                 // that.globalData.openid = res.data.openid
                                                 // that.globalData.firstLogin = res.data.firstLogin
                                                 that.globalData.stepInfoList = res.data.stepInfoList

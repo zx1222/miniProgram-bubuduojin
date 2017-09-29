@@ -2,6 +2,7 @@
 var app = getApp()
 Page({
     data: {
+        isScroll:true,
         userInfo: {},
         // 徽章总数量
         badgeCount: 5,
@@ -53,8 +54,6 @@ Page({
         // 全部加载标识
         LoadingComplete: false,
 
-        // 页面是否可以滚动
-        scroll:true,
         // 隐藏徽章悬浮窗
         hideBadge: true,
         badgeList: [
@@ -84,6 +83,42 @@ Page({
             {
                 categoryName: '打卡徽章',
                 list: [
+                    {
+                        name: '始于足下',
+                        content: '开启第一天计步',
+                        url: '../../assets/images/badge.png',
+                        id: 0
+                    },
+                    {
+                        name: '始于足下',
+                        content: '开启第一天计步',
+                        url: '../../assets/images/badge.png',
+                        id: 0
+                    },
+                    {
+                        name: '始于足下',
+                        content: '开启第一天计步',
+                        url: '../../assets/images/badge.png',
+                        id: 0
+                    },
+                    {
+                        name: '始于足下',
+                        content: '开启第一天计步',
+                        url: '../../assets/images/badge.png',
+                        id: 0
+                    },
+                    {
+                        name: '始于足下',
+                        content: '开启第一天计步',
+                        url: '../../assets/images/badge.png',
+                        id: 0
+                    },
+                    {
+                        name: '始于足下',
+                        content: '开启第一天计步',
+                        url: '../../assets/images/badge.png',
+                        id: 0
+                    },
                     {
                         name: '始于足下',
                         content: '开启第一天计步',
@@ -165,7 +200,7 @@ Page({
     showBadge: function () {
         this.setData({
             hideBadge: false,
-            scroll:false,
+            isScroll:false,
         })
     }
 })

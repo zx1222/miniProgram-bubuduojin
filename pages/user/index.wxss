@@ -4,7 +4,10 @@
         position: relative;
         height: 415rpx;
 }
-
+.main{
+         width: 100%;
+         height: 100%
+}
 .banner .banner-bg {
         height: 100%;
 }

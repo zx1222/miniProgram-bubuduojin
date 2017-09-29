@@ -1,5 +1,5 @@
-<view class='container' disable-scroll="true">
-    <view class='main'>
+<view class='container' style="overflow:{{isScroll?'':'hidden'}}">
+    <view class='main' >
         <!--banner  -->
         <view class='banner'>
             <image class="img-responsive banner-bg" src="../../assets/images/banner-user.jpg"></image>
@@ -58,7 +58,7 @@
     </view>
 
     <!--  徽章悬浮窗-->
-    <scroll-view wx:if='{{!hideBadge}}' class='shade-badge'>
+    <scroll-view wx:if='{{!hideBadge}}' class='shade-badge' style="overflow:{{!isScroll?'scroll':'hidden'}}">
         <!-- <scroll-view class='shade-badge'>  -->
         <view class='badge-list'>
             <view class='category-wrapper' wx:for='{{badgeList}}'>

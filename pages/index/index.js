@@ -10,7 +10,7 @@ Page({
         userInfo: {},
         openid: null,
         stepInfoList: null,
-        firstLogin:1,
+        firstLogin: 1,
 
         // 昨日结算积分  按前一天的步数计算得出
         daily: null,
@@ -56,7 +56,7 @@ Page({
         historyShow: false,
         monthArr: [],
         yearAndmonth: '',
-        signArr: [1, 3, 4, 5, 7, 8, 9, 10, 14, 15],
+        signArr: [],
         // 连续签到的天数
         continuousLen: null
     },
@@ -92,22 +92,17 @@ Page({
                             firstLogin: res.data.firstLogin
                         })
                     }
-                    console.log(res.data.firstLogin)
                 }
             })
         })
         var openid = wx.getStorageSync('openid')
         var identification = wx.getStorageSync('identification')
-        // var firstSign = wx.getStorageSync('firstSign')
-        // console.log(firstSign)
         this.setData({
             openid: openid,
             identification: identification,
-            // firstSign: firstSign
         })
         console.log(this.data.openid)
-        console.log(this.data.firstSign)
-     
+
         // 格式化日期
         var stepInfoList = JSON.parse(wx.getStorageSync('stepInfoList')).stepInfoList
         function formateDate(uData) {
@@ -432,10 +427,23 @@ Page({
         }
         //随机数值，其值为0-11的整数，数据块根据权重分块  
         var rand = Math.floor(Math.random() * total);
-        //console.log(index);  
         return arr[index[rand]];
     },
 
+    mGetDate: function () {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var d = new Date(year, month, 0);
+        return d.getDate();
+    },
+    mGetMonth: function () {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var yearAndmonth = year + '年' + month + '月'
+        return yearAndmonth;
+    },
     // 最近连续打卡天数
     continuous_len: function (arr) {
         var nowLength = 1
@@ -571,56 +579,53 @@ Page({
         this.setData({
             historyShow: true
         })
-        // 获取当前月份天数
-        function mGetDate() {
-            var date = new Date();
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var d = new Date(year, month, 0);
-            return d.getDate();
-        }
-        function mGetMonth() {
-            var date = new Date();
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var yearAndmonth = year + '年' + month + '月'
-            return yearAndmonth;
-        }
-        var monthLength = mGetDate()
+        var that = this
         var monthArr = []
-        for (var i = 0; i < monthLength; i++) {
-            var obj = {
-                day: i + 1,
-                sign: false,
-                last: false
-            }
-            for (var j = 0; j < this.data.signArr.length; j++) {
-                if (i + 1 == this.data.signArr[j] && j == this.data.signArr.length - 1) {
+        var monthLength = this.mGetDate()
+        wx.request({
+            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/sign-history',
+            data: { identification: this.data.identification },
+            method: 'GET',
+            success: function (res) {
+                that.setData({
+                    signArr: res.data.sign_date,
+                    continuousLen: res.data.sign_day
+                })
+                // 创建签到的数组
+                for (var i = 0; i < monthLength; i++) {
                     var obj = {
                         day: i + 1,
-                        sign: true,
-                        last: true
-                    }
-                }
-                else if (i + 1 == this.data.signArr[j]) {
-                    var obj = {
-                        day: i + 1,
-                        sign: true,
+                        sign: false,
                         last: false
                     }
+                    for (var j = 0; j < that.data.signArr.length; j++) {
+                        // 判断是最后签到的一天 因为是倒叙所以是0 
+                        if (i + 1 == parseInt(that.data.signArr[j]) && j == 0) {
+                            var obj = {
+                                day: i + 1,
+                                sign: true,
+                                last: true
+                            }
+                        }
+                        else if (i + 1 == parseInt(that.data.signArr[j])) {
+                            var obj = {
+                                day: i + 1,
+                                sign: true,
+                                last: false
+                            }
+                        }
+                    }
+                    monthArr.push(obj);
                 }
+                that.setData({
+                    monthArr: monthArr,
+                    yearAndmonth: that.mGetMonth(),
+                })
             }
-            monthArr.push(obj);
-        }
-        console.log(this.data.monthArr)
-        var continuousLen = this.continuous_len(this.data.signArr)
-        this.setData({
-            monthArr: monthArr,
-            yearAndmonth: mGetMonth(),
-            continuousLen: continuousLen
         })
+
     },
-    
+
     // 邀请好友
     invite: function () {
         this.setData({
