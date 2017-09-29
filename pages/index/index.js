@@ -627,6 +627,31 @@ Page({
         this.setData({
             invite: false
         })
+        var options = {
+            w: this.data.windowWidth,
+            h: 200,
+            id: 'canvas-line',
+            stepList: this.data.stepInfoList,
+            categories: [
+                this.data.stepInfoList[23].timestamp,
+                this.data.stepInfoList[24].timestamp,
+                this.data.stepInfoList[25].timestamp,
+                this.data.stepInfoList[26].timestamp,
+                this.data.stepInfoList[27].timestamp,
+                this.data.stepInfoList[28].timestamp,
+                this.data.stepInfoList[29].timestamp
+            ],
+            steps: [
+                this.data.stepInfoList[23].step,
+                this.data.stepInfoList[24].step,
+                this.data.stepInfoList[25].step,
+                this.data.stepInfoList[26].step,
+                this.data.stepInfoList[27].step,
+                this.data.stepInfoList[28].step,
+                this.data.stepInfoList[29].step
+            ]
+        }
+        this.drawLineChart(options.w, options.h, options.id, options.stepList, options.categories, options.steps);
     }
 })
 

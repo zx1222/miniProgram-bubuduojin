@@ -29,7 +29,7 @@
     <!--不是第一次登录渲染 不然由于层级问题会遮盖 -->
      <!-- 引入子组件wxml -->
   <!-- <include wx:if='{{firstLogin==1&&!historyShow&&!lottery}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" src="../../components/lineChart/index.wxml" /> -->
-     <canvas wx:if='{{firstLogin==1&&!historyShow&&!lottery}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" canvas-id="canvas-line"></canvas> 
+     <canvas wx:if='{{firstLogin==1&&!historyShow&&!lottery&&!invite}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" canvas-id="canvas-line"></canvas> 
 
 
     <!--签到抽奖 -->
