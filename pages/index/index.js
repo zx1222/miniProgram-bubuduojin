@@ -511,7 +511,7 @@ Page({
             success: function (res) {
                 // 0是今天第一次签到 1是已经签到
                 that.setData({
-                    sign: res.data.code
+                    sign: 1
                 })
             }
         })
