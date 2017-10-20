@@ -1,5 +1,5 @@
 <view class='container' style="overflow:{{isScroll?'':'hidden'}}">
-    <view class='main' >
+    <view class='main'>
         <!--banner  -->
         <view class='banner'>
             <image class="img-responsive banner-bg" src="../../assets/images/banner-user.jpg"></image>
@@ -58,19 +58,36 @@
     </view>
 
     <!--  徽章悬浮窗-->
-    <scroll-view wx:if='{{!hideBadge}}' class='shade-badge' style="overflow:{{!isScroll?'scroll':'hidden'}}">
-        <!-- <scroll-view class='shade-badge'>  -->
-        <view class='badge-list'>
-            <view class='category-wrapper' wx:for='{{badgeList}}'>
-                <view class='title text-red text-m1'>{{item.categoryName}}</view>
-                <view class='item-wrapper'>
-                    <view class='item' wx:for='{{item.list}}'>
-                        <image src='{{item.url}}'></image>
-                        <view class='text-s2 text-bold'>{{item.name}}</view>
-                        <text class='text-ss text-grey'>{{item.content}}</text>
+    <view class='shade-badge' wx:if='{{!hideBadge}}'>
+        <scroll-view scroll-y class='badge-container' style="overflow:{{!isScroll?'scroll':'hidden'}}">
+            <!--徽章列表  -->
+            <view class='badge-list'>
+                <view class='category-wrapper' wx:for='{{badgeList}}'>
+                    <view class='title text-red text-m1'>{{item.categoryName}}</view>
+                    <view class='item-wrapper'>
+                        <view class='item' wx:for='{{item.list}}'>
+                            <image src='{{item.url}}' bindtap='showBadgeDetail' data-key='{{item.id}}'></image>
+                            <view class='text-s2 text-bold'>{{item.name}}</view>
+                            <text class='text-ss text-grey'>{{item.content}}</text>
+                        </view>
                     </view>
                 </view>
             </view>
+        </scroll-view>
+        <!--徽章详情 可点击切换  -->
+        <view wx:if='{{!hideBadgeDetail}}' class='badge-detail'>
+            <view class='swiper-container'></view>
+                <image class='badge'  src='{{currentBadge.url}}'></image>
+                <image class='shadow'  src='../../assets/images/badge-shadow.png'></image>
+                <text class='name'>{{currentBadge.name}}</text>
+                <text class='content text-darkgrey'>{{currentBadge.content}}</text>
+                <text class='desc text-darkgrey'>{{currentBadge.desc}}</text>
+
+                <image class='left' bindtap='slideLeft'  src='../../assets/images/icon-left.png'></image>
+                <image class='left' bindtap='slideLeft' src='../../assets/images/icon-left-l.png'></image>
+                <image class='right' bindtap='slideRight' src='../../assets/images/icon-right.png'></image>
+                <image class='right' bindtap='slideRight' src='../../assets/images/icon-right-l.png'></image>
+                <image class='close' bindtap='closeBadgeDetail' src='../../assets/images/btn-closeBadge.png'></image>
         </view>
-    </scroll-view>
+    </view>
 </view>

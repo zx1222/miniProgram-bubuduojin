@@ -60,6 +60,9 @@ page{
 .text-grey{
     color: #717070;
 }
+.text-darkgrey{
+    color: #757373;
+}
 .text-bold{
     font-weight: 600;
 }
