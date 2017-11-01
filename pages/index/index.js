@@ -68,13 +68,15 @@ Page({
     },
     onLoad: function () {
         var that = this
-        console
+        
         //调用应用实例的方法获取全局数据
         app.getUserInfo(function (userInfo) {
             //更新数据
             that.setData({
                 userInfo: userInfo,
+                // openid:openid
             })
+            // console.log(this.data.openid)
             // 给后端传用户信息
             var obj_base64 = new fun_base64.Base64();
             var openid = obj_base64.encode(that.data.openid);
@@ -102,7 +104,6 @@ Page({
             openid: openid,
             identification: identification,
         })
-        console.log(this.data.openid)
 
         // 格式化日期
         var stepInfoList = JSON.parse(wx.getStorageSync('stepInfoList')).stepInfoList
@@ -237,7 +238,6 @@ Page({
         context.beginPath();
 
         // 设置填充颜色
-
         context.setStrokeStyle("#db493a");
         context.setFillStyle("#db493a");
         // 绘制节点圆形区域
@@ -263,7 +263,7 @@ Page({
 
 
 
-        //  //小程序中没提供获文本宽度的方法 判断各种字符宽度 返回字符串总宽度
+        //小程序中没提供获文本宽度的方法 判断各种字符宽度 返回字符串总宽度
         function mesureText(text) {
             var text = text.split('');
             var width = 0;
@@ -355,7 +355,6 @@ Page({
     weight_rand: function (arr) {
         //参数arr元素必须含有weight属性，参考如下所示  
         //var arr=[{name:'1',weight:1.5},{name:'2',weight:2.5},{name:'3',weight:3.5}];  
-        //var arr=[{name:'1',weight:'15%'},{name:'2',weight:'25%'},{name:'3',weight:'35%'}];  
         //求出最大公约数以计算缩小倍数，perMode为百分比模式  
         var per;
         var maxNum = 0;
@@ -431,6 +430,7 @@ Page({
         return arr[index[rand]];
     },
 
+    // 获取当前年月日
     mGetDate: function () {
         var date = new Date();
         var year = date.getFullYear();
@@ -438,6 +438,7 @@ Page({
         var d = new Date(year, month, 0);
         return d.getDate();
     },
+    // 获取当前年月
     mGetMonth: function () {
         var date = new Date();
         var year = date.getFullYear();
@@ -458,7 +459,6 @@ Page({
         }
         return nowLength
     },
-
     // 收下昨日结算
     receiveLogIn: function () {
         this.setData({
@@ -501,7 +501,6 @@ Page({
             }
         })
     },
-
     // 签到打卡
     sign: function (e) {
         var arr = [{ name: '1', weight: 2 }, { name: '2', weight: 2 }, { name: '3', weight: 2 }, { name: '4', weight: 2 }, { name: '5', weight: 2 }];
@@ -530,6 +529,16 @@ Page({
 
     // 点击抽奖
     lotteryRun: function (e) {
+        wx.request({
+            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/lottery',
+            method: 'GET',
+            success: function (res) {
+                // 0是今天第一次签到 1是已经签到
+                that.setData({
+                    firstSign: 1
+                })
+            }
+        })
         this.setData({
             activeIndex: e.target.dataset.key,
             lotteryRun: true
@@ -588,43 +597,64 @@ Page({
             data: { identification: this.data.identification },
             method: 'GET',
             success: function (res) {
-                that.setData({
-                    signArr: res.data.sign_date,
-                    continuousLen: res.data.sign_day
-                })
-                // 创建签到的数组
-                for (var i = 0; i < monthLength; i++) {
-                    var obj = {
-                        day: i + 1,
-                        sign: false,
-                        last: false
-                    }
-                    for (var j = 0; j < that.data.signArr.length; j++) {
-                        // 判断是最后签到的一天 因为是倒叙所以是0 
-                        if (i + 1 == parseInt(that.data.signArr[j]) && j == 0) {
-                            var obj = {
-                                day: i + 1,
-                                sign: true,
-                                last: true
-                            }
-                        }
-                        else if (i + 1 == parseInt(that.data.signArr[j])) {
-                            var obj = {
-                                day: i + 1,
-                                sign: true,
-                                last: false
-                            }
-                        }
-                    }
-                    monthArr.push(obj);
+                if(res.data!=null){
+                    that.setData({
+                        signArr: res.data.sign_date,
+                        continuousLen: res.data.sign_day
+                    })
                 }
+                else{
+                    that.setData({
+                        signArr:[],
+                        continuousLen: 0
+                    })
+                }
+                // 创建签到的数组
+                if(res.data!=null){
+                    for (var i = 0; i < monthLength; i++) {
+                        var obj = {
+                            day: i + 1,
+                            sign: false,
+                            last: false
+                        }
+                        for (var j = 0; j < that.data.signArr.length; j++) {
+                            // 判断是最后签到的一天 因为是倒叙所以是0 
+                            if (i + 1 == parseInt(that.data.signArr[j]) && j == 0) {
+                                var obj = {
+                                    day: i + 1,
+                                    sign: true,
+                                    last: true
+                                }
+                            }
+                            else if (i + 1 == parseInt(that.data.signArr[j])) {
+                                var obj = {
+                                    day: i + 1,
+                                    sign: true,
+                                    last: false
+                                }
+                            }
+                        }
+                        monthArr.push(obj);
+                    }
+                }
+                else{
+                    for (var i = 0; i < monthLength; i++) {
+                        var obj = {
+                            day: i + 1,
+                            sign: false,
+                            last: false
+                        }
+                        monthArr.push(obj);
+                    }
+                }
+             
                 that.setData({
                     monthArr: monthArr,
                     yearAndmonth: that.mGetMonth(),
                 })
+                console.log(that.data.monthArr)
             }
         })
-
     },
 
     // 邀请好友
