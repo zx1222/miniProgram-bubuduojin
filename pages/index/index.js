@@ -586,9 +586,14 @@ Page({
 
     // 签到历史
     showHistory: function () {
-        this.setData({
-            historyShow: true
-        })
+        var that=this
+        // 解决未签到先显示null再渲染的问题
+        setTimeout(function(){
+            that.setData({
+                historyShow: true
+            })
+        },300)
+        
         var that = this
         var monthArr = []
         var monthLength = this.mGetDate()
