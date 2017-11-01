@@ -6,6 +6,7 @@ var commonObj={
         var month = date.getMonth() + 1;
         var d = new Date(year, month, 0);
         return d.getDate();
+        console.log('aaaa')
     },
 
     //带权重的数组取值
@@ -96,3 +97,5 @@ var commonObj={
         return yearAndmonth;
     },
 }
+
+module.exports=commonObj
