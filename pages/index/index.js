@@ -438,6 +438,7 @@ Page({
         var d = new Date(year, month, 0);
         return d.getDate();
     },
+
     // 获取当前年月
     mGetMonth: function () {
         var date = new Date();
@@ -446,6 +447,7 @@ Page({
         var yearAndmonth = year + '年' + month + '月'
         return yearAndmonth;
     },
+
     // 最近连续打卡天数
     continuous_len: function (arr) {
         var nowLength = 1
@@ -459,6 +461,7 @@ Page({
         }
         return nowLength
     },
+
     // 收下昨日结算
     receiveLogIn: function () {
         this.setData({
@@ -501,6 +504,7 @@ Page({
             }
         })
     },
+
     // 签到打卡
     sign: function (e) {
         var arr = [{ name: '1', weight: 2 }, { name: '2', weight: 2 }, { name: '3', weight: 2 }, { name: '4', weight: 2 }, { name: '5', weight: 2 }];
@@ -602,20 +606,26 @@ Page({
             data: { identification: this.data.identification },
             method: 'GET',
             success: function (res) {
-                if(res.data!=null){
+                if (res.data.sign_date != "" && res.data.sign_day != ""){
                     that.setData({
                         signArr: res.data.sign_date,
                         continuousLen: res.data.sign_day
                     })
                 }
-                else{
+                else if (res.data.sign_date == "" && res.data.sign_day != ""){
+                    that.setData({
+                        signArr: [],
+                        continuousLen: res.data.sign_day 
+                    })
+                }
+                else if (res.data.sign_date == "" && res.data.sign_day == ""){
                     that.setData({
                         signArr:[],
                         continuousLen: 0
                     })
                 }
                 // 创建签到的数组
-                if(res.data!=null){
+                if (res.data.sign_date!=""){
                     for (var i = 0; i < monthLength; i++) {
                         var obj = {
                             day: i + 1,
