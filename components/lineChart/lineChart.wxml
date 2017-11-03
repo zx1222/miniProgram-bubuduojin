@@ -1,2 +1,0 @@
-<!--折线图画布  -->
-<canvas wx:if='{{firstLogin==1&&!historyShow&&!lottery}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" canvas-id="canvas-line"></canvas>

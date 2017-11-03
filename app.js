@@ -28,7 +28,6 @@ App({
                                 wx.getUserInfo({
                                     success: function (res) {
                                         that.globalData.userInfo = res.userInfo
-                                        typeof cb == "function" && cb(that.globalData.userInfo)
                                         var data = {
                                             appid: appid,
                                             secret: secret,
@@ -44,6 +43,7 @@ App({
                                             data: data,
                                             method: 'GET',
                                             success: function (res) {
+                                                // cosnole.log(res)
                                                 // that.globalData.openid = res.data.openid
                                                 // that.globalData.firstLogin = res.data.firstLogin
                                                 that.globalData.stepInfoList = res.data.stepInfoList

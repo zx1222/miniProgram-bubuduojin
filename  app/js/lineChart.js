@@ -37,6 +37,28 @@ function drawLineChart(w, h, id, stepList, categories, steps) {
             max_step = stepList[30 - i].step
         }
     }
+
+    //绘制1W步标准的蚂蚁线
+    //没个单独的蚂蚁线长10 一共的数量用宽度/10向上取整 中间位置不绘制
+    context.beginPath();
+    for (var i = 0; i < Math.ceil(opts.width / 10); i++) {
+        if (i % 2 == 0 && i != Math.ceil(opts.width / 10) / 2 && i != Math.ceil(opts.width / 10) / 2 + 1 && i != Math.ceil(opts.width / 10) / 2 - 1 && i != Math.ceil(opts.width / 10) / 2 - 3) {
+            context.setStrokeStyle("#f6a9ae");
+            context.moveTo(10 * i, opts.height - 40 - 130 * (10000 / (max_step + 6000)) - 5);
+            context.lineTo(10 * (i + 1), opts.height - 40 - 130 * (10000 / (max_step + 6000)) - 5);
+        }
+    }
+
+    context.setFontSize(12);
+    context.font = "bold";
+    context.setFillStyle("#f6a9ae");
+    var offset = mesureText('1W') / 2;
+    // 10是两边留白
+    context.fillText('1W', opts.width / 2 - offset, opts.height - 40 - 130 * (10000 / (max_step + 6000)))
+    context.fill()
+    context.stroke();
+    context.closePath();
+    
     //对当前路径进行描边
     //将绘制折线图的区域设置高度为130 也就是上面留30 下面40
     context.beginPath()
@@ -158,26 +180,7 @@ function drawLineChart(w, h, id, stepList, categories, steps) {
     context.closePath();
 
 
-    //绘制1W步标准的蚂蚁线
-    //没个单独的蚂蚁线长10 一共的数量用宽度/10向上取整 中间位置不绘制
-    context.beginPath();
-    for (var i = 0; i < Math.ceil(opts.width / 10); i++) {
-        if (i % 2 == 0 && i != Math.ceil(opts.width / 10) / 2 && i != Math.ceil(opts.width / 10) / 2 + 1 && i != Math.ceil(opts.width / 10) / 2 - 1 && i != Math.ceil(opts.width / 10) / 2 - 3) {
-            context.setStrokeStyle("#f6a9ae");
-            context.moveTo(10 * i, opts.height - 40 - 130 * (10000 / (max_step + 6000)) - 5);
-            context.lineTo(10 * (i + 1), opts.height - 40 - 130 * (10000 / (max_step + 6000)) - 5);
-        }
-    }
-
-    context.setFontSize(12);
-    context.font = "bold";
-    context.setFillStyle("#f6a9ae");
-    var offset = mesureText('1W') / 2;
-    // 10是两边留白
-    context.fillText('1W', opts.width / 2 - offset, opts.height - 40 - 130 * (10000 / (max_step + 6000)))
-    context.fill()
-    context.stroke();
-    context.closePath();
+    
 
 
     wx.drawCanvas({

@@ -27,8 +27,6 @@
 
     <!--一周运动数据折线图画布  -->
     <!--不是第一次登录渲染 不然由于层级问题会遮盖 -->
-     <!-- 引入子组件wxml -->
-  <!-- <include wx:if='{{firstLogin==1&&!historyShow&&!lottery}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" src="../../components/lineChart/index.wxml" /> -->
      <canvas wx:if='{{firstLogin==1&&!historyShow&&!lottery&&!invite}}' class="canvas-line" style="width: {{windowWidth}}px; height: 200px;" canvas-id="canvas-line"></canvas> 
 
 
@@ -45,25 +43,6 @@
         </view>
         <image class='btn-close ' bindtap='closeLottery' src='../../assets/images/btn-close.png'></image>
     </view>
-
-
-    <!--签到历史  -->
-    <view class="{{historyShow?'fadeIn':''}} history" wx:if='{{historyShow}}'>
-        <image class='bg' src='../../assets/images/bg-sign-history.jpg'></image>
-        <text class='yearAndmonth text-m1 text-white'>{{yearAndmonth}}</text>
-        <view class='calendar'>
-            <view wx:if='{{continuousLen!=0}}' class='continuous-sign text-m1 text-lightRed'>您已经连续签到
-                <text class='text-l2 text-lightRed'>{{continuousLen}}</text> 天 </view>
-            <text wx:if='{{continuousLen!=0}}' class='text-m2 text-lightRed remember'>明天记得继续签到哦~</text>
-            <view class='day-container'>
-                <view class="{{item.sign?'active':''}} day-wrapper" wx:for='{{monthArr}}' wx:key='{{item.day}}'>
-                    <view class="{{item.sign?'active':''}} {{item.last?'last':''}} day ">{{item.day}} </view>
-                    <view class='link-line'></view>
-                </view>
-            </view>
-        </view>
-    </view>
-
 
        <!--邀请好友  -->
     <view class='invite-friends'>

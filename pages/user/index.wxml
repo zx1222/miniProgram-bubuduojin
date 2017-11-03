@@ -3,7 +3,7 @@
         <!--banner  -->
         <view class='banner'>
             <image class="img-responsive banner-bg" src="../../assets/images/banner-user.jpg"></image>
-            <image class='btn-question' src='../../assets/images/btn-question.png'></image>
+            <image class='btn-question' src='../../assets/images/btn-question.png' bindtap='showQuestion'></image>
             <image class='user-photo' src='{{userInfo.avatarUrl}}'></image>
             <text class='nickname text-m2 text-white'>{{userInfo.nickName}}</text>
         </view>
@@ -31,18 +31,14 @@
             <view class='wrapper'>
                 <text class='text-red text-m2 title'>收支明细</text>
                 <view class='listView'>
-                    <view class='item' wx:for='{{detailsList}}' wx:key='{{index}}'>
+                    <view class='item' wx:for='{{detailsList}}' >
                         <view class='l'>
-                            <view class='text-m1'>{{item.name}}</view>
-                            <view class='text-ss'>{{item.time}}</view>
+                            <view class='text-m1'>{{item.score_rules}}</view>
+                            <view class='text-ss'>{{item.score_time}}</view>
                         </view>
                         <view class='r'>
-                            <view wx:if="{{item.state==0}}" class='text-red text-l2'>
-                                <text class='text-m1'>+</text>{{item.score}}
-                                <text class='text-m2'>丸</text>
-                            </view>
-                            <view wx:if="{{item.state==1}}" class='text-grey text-l2'>
-                                <text class='text-m1'>-</text>{{item.score}}
+                            <view class='text-red text-l2'>
+                                <text class='text-m1'>{{item.score_status}}</text>{{item.score_value}}
                                 <text class='text-m2'>丸</text>
                             </view>
                         </view>
@@ -89,5 +85,10 @@
                 <image class='right' bindtap='slideRight' src='../../assets/images/icon-right-l.png'></image>
                 <image class='close' bindtap='closeBadgeDetail' src='../../assets/images/btn-closeBadge.png'></image>
         </view>
+    </view>
+
+    <!--常见问题  -->
+    <view class='question' wx:if='{{showQuestion}}'>
+    
     </view>
 </view>

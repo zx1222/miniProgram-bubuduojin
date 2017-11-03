@@ -3,24 +3,9 @@ var app = getApp()
 Page({
     data: {
         identification: wx.getStorageSync('identification'),
-        isScroll:true,
-        userInfo: {},
-        // 徽章总数量
-        badgeCount: 0,
-        // 积分总数量
-        scoreCount: 0,
-        // 收支明细
-        detailsList: [ ],
-        // 正在加载的隐藏
-        hideLoadMore: true,
-        // 分页和每次加载显示的个数
-        PageNum: 1,   // 设置加载的第几次，默认是第一次  
-        callbackcount: 5,
-        // 全部加载标识
-        LoadingComplete: false,
+        isScroll: true,
 
         // 隐藏徽章悬浮窗
-        hideBadge: true,
         badgeList: [
             {
                 categoryName: '步数徽章',
@@ -118,35 +103,27 @@ Page({
             }
         ],
         // 隐藏徽章详情
-        hideBadgeDetail:true,
-        currentBadge:{
+        hideBadgeDetail: true,
+        currentBadge: {
             name: '',
             content: '',
             url: '',
             id: null
         },
-        badgeArr:[],
-        badgeIndex:0,
-
-        hideQuestion:true
+        badgeArr: [],
+        badgeIndex: 0,
     },
     onLoad: function (options) {
         var that = this;
-        app.getUserInfo(function (userInfo) {
-            //更新数据
-            that.setData({
-                userInfo: userInfo,
-            })
-        })
-        var data={
+        var data = {
             identification: this.data.identification
         }
         wx.request({
             url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/my/score-record',
-            data:data,
-            success:function(res){
+            data: data,
+            success: function (res) {
                 that.setData({
-                    detailsList:res.data.data,
+                    detailsList: res.data.data,
                     badgeCount: res.data.total.badge,
                     scoreCount: res.data.total.scores
                 })
@@ -160,73 +137,43 @@ Page({
     onShareAppMessage: function () {
 
     },
-    //下拉刷新
-    onPullDownRefresh: function () {
-        wx.showNavigationBarLoading() //在标题栏中显示加载
+    loadMore: function () {
 
-        //模拟加载
-        setTimeout(function () {
-            // complete
-            wx.hideNavigationBarLoading() //完成停止加载
-            wx.stopPullDownRefresh() //停止下拉刷新
-        }, 1500);
-    },
-    //     //上拉加载更多   
-    onReachBottom: function () {
-        var that = this
-        this.setData({
-            hideLoadMore: false
-        })
-        setTimeout(function () {
-            var arr = that.data.detailsList;
-            console.log(arr)
-            arr.push(arr[1],arr[2])
-            that.setData({
-                detailsList: arr,
-                hideLoadMore: true
-            })
-        }, 1500)
-    },
-    // 全部徽章悬浮窗
-    showBadge: function () {
-        wx.navigateTo({
-            url: '../badge/index',
-        })
     },
     // 点击徽章显示详情
-    showBadgeDetail:function(e){
+    showBadgeDetail: function (e) {
         this.setData({
-            hideBadgeDetail:false
+            hideBadgeDetail: false
         })
-        var arr =[]
-        var badgeArr=[]
-        for (var i = 0; i < this.data.badgeList.length;i++){
-            for (var j = 0; j < this.data.badgeList[i].list.length;j++){
+        var arr = []
+        var badgeArr = []
+        for (var i = 0; i < this.data.badgeList.length; i++) {
+            for (var j = 0; j < this.data.badgeList[i].list.length; j++) {
                 arr.push(this.data.badgeList[i].list[j].id)
                 badgeArr.push({
                     name: this.data.badgeList[i].list[j].name,
                     content: this.data.badgeList[i].list[j].content,
                     url: this.data.badgeList[i].list[j].url,
                     desc: this.data.badgeList[i].list[j].desc,
-                    id: this. data.badgeList[i].list[j].id
+                    id: this.data.badgeList[i].list[j].id
                 })
             }
         }
         console.log(badgeArr)
         var index = arr.indexOf(e.target.dataset.key)
-       this.setData({
-           currentBadge: badgeArr[index],
-           badgeArr: badgeArr,
-           badgeIndex:index
-       })
+        this.setData({
+            currentBadge: badgeArr[index],
+            badgeArr: badgeArr,
+            badgeIndex: index
+        })
     },
-    slideRight:function(){
-        if (this.data.badgeIndex == this.data.badgeArr.length){
+    slideRight: function () {
+        if (this.data.badgeIndex == this.data.badgeArr.length) {
         }
-        else{
+        else {
             this.setData({
                 currentBadge: this.data.badgeArr[this.data.badgeIndex + 1],
-                badgeIndex:this.data.badgeIndex+1
+                badgeIndex: this.data.badgeIndex + 1
             })
         }
     },
@@ -240,7 +187,7 @@ Page({
             })
         }
     },
-    closeBadgeDetail:function(){
+    closeBadgeDetail: function () {
         this.setData({
             hideBadgeDetail: true
         })

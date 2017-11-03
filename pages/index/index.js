@@ -1,14 +1,13 @@
 //index.js
 //获取应用实例
 var fun_base64 = require('../../utils/base64.js');
-var commonObj=require('../../ app/js/commo.js');
+var commonObj=require('../../ app/js/common.js');
 var lineChart=require('../../ app/js/lineChart.js');
 var app = getApp()
-// var lineChart = require('../../components/lineChart/index.js');
 
 Page({
     data: {
-        identification: null,
+        identification: wx.getStorageSync('identification'),
         userInfo: {},
         openid: null,
         stepInfoList: null,
@@ -16,9 +15,9 @@ Page({
         chartOption:{},
 
         // 昨日结算积分  按前一天的步数计算得出
-        daily: null,
+        daily: 0,
         // 今日签到标识
-        firstSign: wx.getStorageSync('firstSign'),
+        firstSign: 0,
         //签到随机获得的积分
         signScore: 0,
 
@@ -61,7 +60,7 @@ Page({
         yearAndmonth: '',
         signArr: [],
         // 连续签到的天数
-        continuousLen: null
+        continuousLen: 0
     },
     //事件处理函数
     bindViewTap: function () {
@@ -69,17 +68,15 @@ Page({
             url: '../logs/logs'
         })
     },
+
     onLoad: function () {
         var that = this
-        
         //调用应用实例的方法获取全局数据
         app.getUserInfo(function (userInfo) {
             //更新数据
             that.setData({
                 userInfo: userInfo,
-                // openid:openid
             })
-            // console.log(this.data.openid)
             // 给后端传用户信息
             var obj_base64 = new fun_base64.Base64();
             var openid = obj_base64.encode(that.data.openid);
@@ -103,25 +100,17 @@ Page({
         })
         var openid = wx.getStorageSync('openid')
         var identification = wx.getStorageSync('identification')
-        this.setData({
-            openid: openid,
-            identification: identification,
-        })
-
         // 格式化日期
         var stepInfoList = JSON.parse(wx.getStorageSync('stepInfoList')).stepInfoList
-        function formateDate(uData) {
-            var myDate = new Date(uData * 1000);
-            var month = myDate.getMonth() + 1;
-            var day = myDate.getDate();
-            return month + '·' + day;
-        }
         for (var i = 0; i < stepInfoList.length; i++) {
             var time = stepInfoList[i].timestamp;
-            stepInfoList[i].timestamp = formateDate(new Date(time + 1000))
+            stepInfoList[i].timestamp = commonObj.formateDate(new Date(time + 1000))
         }
         this.setData({
             stepInfoList: stepInfoList,
+            firstSign: wx.getStorageSync('firstSign'),
+            openid: openid,
+            identification: identification,
         })
 
         //获取系统信息  
@@ -161,7 +150,7 @@ Page({
             ]
         }
         this.setData({
-            daily: Math.floor(this.data.stepInfoList[29].step / 5000),
+            daily: ~~(this.data.stepInfoList[29].step / 5000),
             chartOptions:options
         })
         lineChart(this.data.chartOptions.w, this.data.chartOptions.h, this.data.chartOptions.id, this.data.chartOptions.stepList, this.data.chartOptions.categories, this.data.chartOptions.steps);
@@ -248,85 +237,9 @@ Page({
 
     // 签到历史
     showHistory: function () {
-        var that=this
-        // 解决未签到先显示null再渲染的问题
-        setTimeout(function(){
-            that.setData({
-                historyShow: true
-            })
-        },300)
-    
-        var monthArr = []
-        var monthLength = commonObj.mGetDate()
-        wx.request({
-            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/sign-history',
-            data: { identification: this.data.identification },
-            method: 'GET',
-            success: function (res) {
-                if (res.data.sign_date != "" && res.data.sign_day != ""){
-                    that.setData({
-                        signArr: res.data.sign_date,
-                        continuousLen: res.data.sign_day
-                    })
-                }
-                else if (res.data.sign_date == "" && res.data.sign_day != ""){
-                    that.setData({
-                        signArr: [],
-                        continuousLen: res.data.sign_day 
-                    })
-                }
-                else if (res.data.sign_date == "" && res.data.sign_day == ""){
-                    that.setData({
-                        signArr:[],
-                        continuousLen: 0
-                    })
-                }
-                // 创建签到的数组
-                if (res.data.sign_date!=""){
-                    for (var i = 0; i < monthLength; i++) {
-                        var obj = {
-                            day: i + 1,
-                            sign: false,
-                            last: false
-                        }
-                        for (var j = 0; j < that.data.signArr.length; j++) {
-                            // 判断是最后签到的一天 因为是倒叙所以是0 
-                            if (i + 1 == parseInt(that.data.signArr[j]) && j == 0) {
-                                var obj = {
-                                    day: i + 1,
-                                    sign: true,
-                                    last: true
-                                }
-                            }
-                            else if (i + 1 == parseInt(that.data.signArr[j])) {
-                                var obj = {
-                                    day: i + 1,
-                                    sign: true,
-                                    last: false
-                                }
-                            }
-                        }
-                        monthArr.push(obj);
-                    }
-                }
-                else{
-                    for (var i = 0; i < monthLength; i++) {
-                        var obj = {
-                            day: i + 1,
-                            sign: false,
-                            last: false
-                        }
-                        monthArr.push(obj);
-                    }
-                }
-             
-                that.setData({
-                    monthArr: monthArr,
-                    yearAndmonth: commonObj.mGetMonth(),
-                })
-                console.log(that.data.monthArr)
-            }
-        })
+       wx,wx.navigateTo({
+           url: '../history/index'
+       })
     },
 
     // 邀请好友

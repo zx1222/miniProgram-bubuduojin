@@ -1,4 +1,4 @@
-var commonObj={
+var commonObj = {
     // 获取当前月份天数
     mGetDate: function () {
         var date = new Date();
@@ -96,6 +96,14 @@ var commonObj={
         var yearAndmonth = year + '年' + month + '月'
         return yearAndmonth;
     },
+
+    // 格式化日期(月▪日)
+    formateDate: function (uData) {
+        var myDate = new Date(uData * 1000);
+        var month = myDate.getMonth() + 1;
+        var day = myDate.getDate();
+        return month + '·' + day;
+    }
 }
 
-module.exports=commonObj
+module.exports = commonObj

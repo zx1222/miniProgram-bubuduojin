@@ -4,7 +4,8 @@
         "pages/logs/logs",
         "pages/discover/index",
         "pages/user/index",
-        "components/lineChart/lineChart"
+        "pages/badge/index",
+        "pages/history/index"
     ],
     "window": {
         "backgroundTextStyle": "light",
