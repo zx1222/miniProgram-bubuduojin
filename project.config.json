@@ -9,7 +9,7 @@
 	"compileType": "weapp",
 	"libVersion": "1.5.3",
 	"appid": "wx66e4ec7b580c2658",
-	"projectname": "bubuduojin",
+	"projectname": "anniu_bubuduojin",
 	"condition": {
 		"weapp": {
 			"current": -1,

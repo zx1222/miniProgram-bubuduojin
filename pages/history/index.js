@@ -7,6 +7,7 @@ var app = getApp()
 
 Page({
     data: {
+        show:false,
         identification: wx.getStorageSync('identification'),
         monthArr: [],
         yearAndmonth: '',
@@ -38,9 +39,9 @@ Page({
         var that=this
         setTimeout(function () {
             that.setData({
-                historyShow: true
+                show: true
             })
-        }, 300)
+        }, 200)
 
         var monthArr = []
         var monthLength = commonObj.mGetDate()

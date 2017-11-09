@@ -1,5 +1,5 @@
  <!--签到历史  -->
-    <view class="{{historyShow?'fadeIn':''}} history" >
+    <view class="{{historyShow?'fadeIn':''}} history" wx:if='{{show}}'>
         <image class='bg' src='../../assets/images/bg-sign-history.jpg'></image>
         <text class='yearAndmonth text-m1 text-white'>{{yearAndmonth}}</text>
         <view class='calendar'>
