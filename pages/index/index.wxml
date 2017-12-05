@@ -36,7 +36,7 @@
         <view class='signScore .text-m2'>签到成功，获得
             <text class='text-yellow text-l2'>{{signScore}}</text>丸，翻牌看看手气~</view>
         <view class='card-container'>
-            <view class='card-wrapper' wx:for='{{cardArr}}' wx:key='{{item.id}}'>
+            <view class='card-wrapper' wx:for='{{cardArr}}' wx:key='*this'>
                 <image class="{{activeIndex==item.id?'flip-scale level-down card-back':'card'}} {{lotteryYet&&activeIndex!=item.id?'card-back flip':'card'}}" bindtap='lotteryRun' src='../../assets/images/lottery-card.png' data-key='{{item.id}}'></image>
                 <image class="{{activeIndex==item.id?'level-up flip-scale  card':'card-back'}}       {{lotteryYet&&activeIndex!=item.id?'card flip':'card-back'}}" src='../../assets/images/lottery-card-back1.png'></image>
             </view>

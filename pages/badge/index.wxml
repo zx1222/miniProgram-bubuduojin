@@ -6,10 +6,10 @@
         <scroll-view scroll-y class='badge-container' style="overflow:{{!isScroll?'scroll':'hidden'}}">
             <!--徽章列表  -->
             <view class='badge-list'>
-                <view class='category-wrapper' wx:for='{{badgeList}}'>
+                <view class='category-wrapper' wx:for='{{badgeList}}' wx:key='*this'>
                     <view class='title text-red text-m1'>{{item.categoryName}}</view>
                     <view class='item-wrapper'>
-                        <view class='item' wx:for='{{item.list}}'>
+                        <view class='item' wx:for='{{item.list}}' wx:key='*this'>
                             <image src='{{item.url}}' bindtap='showBadgeDetail' data-key='{{item.id}}'></image>
                             <view class='text-s2 text-bold'>{{item.name}}</view>
                             <text class='text-ss text-grey'>{{item.content}}</text>

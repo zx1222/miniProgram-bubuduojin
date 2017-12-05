@@ -1,8 +1,8 @@
 <!--pages/questions.wxml-->
 <view class='container'>
     <view class='questionContainer'>
-        <view class='questionWrapper' wx:for='{{questions}}' wx:key='{{index}}'>
-            <view class='title'>Q{{index}} : {{item.question}}</view>
+        <view class='questionWrapper' wx:for='{{questions}}' wx:key='*this'>
+            <view class='title'>Q{{index+1}} : {{item.question}}</view>
             <text class='content'>{{item.answer}}</text>
         </view>
     </view>

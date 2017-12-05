@@ -7,7 +7,7 @@
                 <text class='text-l2 text-lightRed'>{{continuousLen}}</text> 天 </view>
             <text wx:if='{{continuousLen!=0}}' class='text-m2 text-lightRed remember'>明天记得继续签到哦~</text>
             <view class='day-container'>
-                <view class="{{item.sign?'active':''}} day-wrapper" wx:for='{{monthArr}}' wx:key='{{item.day}}'>
+                <view class="{{item.sign?'active':''}} day-wrapper" wx:for='{{monthArr}}' wx:key='*this'>
                     <view class="{{item.sign?'active':''}} {{item.last?'last':''}} day ">{{item.day}} </view>
                     <view class='link-line'></view>
                 </view>
