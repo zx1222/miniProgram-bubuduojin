@@ -1,4 +1,5 @@
 //app.js
+var Promise = require('plugins/es6-promise.js');
 App({
     onLaunch: function () {
         //调用API从本地缓存中获取数据
@@ -10,9 +11,23 @@ App({
     getUserInfo: function (cb) {
         var that = this
         if (this.globalData.userInfo) {
-            typeof cb == "function" && cb(this.globalData.userInfo)
+            typeof cb == "function" && cb(that.globalData.userInfo)
         } else {
-            //调用登录接口
+            wx.login({
+                success: function () {
+                    wx.getUserInfo({
+                        success: function (res) {
+                            that.globalData.userInfo = res.userInfo
+                            typeof cb == "function" && cb(that.globalData.userInfo)
+                        }
+                    })
+                }
+            })
+        }
+    },
+    getUserData: function () {
+        var that = this;
+        var promise = new Promise(function (resolve, reject) {
             wx.login({
                 success: function (res) {
                     var code = res.code
@@ -24,45 +39,40 @@ App({
                             success(res) {
                                 var encryptedData = res.encryptedData
                                 var iv = res.iv
-                                // 获取用户信息
-                                wx.getUserInfo({
+                                var data = {
+                                    appid: appid,
+                                    secret: secret,
+                                    code: code,
+                                    encryptedData: encryptedData,
+                                    iv: iv,
+                                    grant_type: 'authorization_code'
+                                }
+                                console.log(data)
+                                wx.request({
+                                    //获取用户数据接口
+                                    url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/identify',
+                                    data: data,
+                                    method: 'GET',
                                     success: function (res) {
-                                        that.globalData.userInfo = res.userInfo
-                                        var data = {
-                                            appid: appid,
-                                            secret: secret,
-                                            code: code,
-                                            encryptedData: encryptedData,
-                                            iv: iv,
-                                            grant_type: 'authorization_code'
-                                        }
-                                        console.log(data)
-                                        wx.request({
-                                            //获取openid接口
-                                            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/identify',
-                                            data: data,
-                                            method: 'GET',
-                                            success: function (res) {
-                                                // cosnole.log(res)
-                                                // that.globalData.openid = res.data.openid
-                                                // that.globalData.firstLogin = res.data.firstLogin
-                                                that.globalData.stepInfoList = res.data.stepInfoList
-                                                that.globalData.identification = res.data.identification
-                                                wx.setStorageSync(
-                                                    'openid', res.data.openid
-                                                )
-                                                wx.setStorageSync(
-                                                    'stepInfoList', res.data.stepInfoList
-                                                )
-                                                wx.setStorageSync(
-                                                    'identification', res.data.identification
-                                                )
-                                                wx.setStorageSync(
-                                                    'firstSign', res.data.firstSign
-                                                )
-                                                console.log(wx.getStorageSync('firstSign'))
-                                            }
-                                        })
+                                        resolve(res);
+                                        // cosnole.log(res)
+                                        // that.globalData.openid = res.data.openid
+                                        // that.globalData.firstLogin = res.data.firstLogin
+                                        // that.globalData.stepInfoList = res.data.stepInfoList
+                                        // that.globalData.identification = res.data.identification
+                                        // wx.setStorageSync(
+                                        //     'openid', res.data.openid
+                                        // )
+                                        // wx.setStorageSync(
+                                        //     'stepInfoList', res.data.stepInfoList
+                                        // )
+                                        wx.setStorageSync(
+                                            'identification', res.data.identification
+                                        )
+                                        // wx.setStorageSync(
+                                        //     'firstSign', res.data.firstSign
+                                        // )
+                                        // console.log(wx.getStorageSync('firstSign'))
                                     }
                                 })
                             }
@@ -70,12 +80,13 @@ App({
                     }
                 },
             })
-        }
+        })
+        return promise;
     },
     globalData: {
         userInfo: null,
-        openid: null,
-        stepInfoList: null,
-        identification: null
+        // openid: null,
+        // stepInfoList: null,
+        // identification: null
     }
 })

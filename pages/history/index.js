@@ -23,13 +23,7 @@ Page({
     },
 
     onLoad: function () {
-        var that = this
-
-        var data = {
-            identification: that.data.identification
-        }
         var identification = wx.getStorageSync('identification')
-
         this.setData({
             identification: identification,
         })
