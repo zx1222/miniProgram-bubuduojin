@@ -1,4 +1,7 @@
 /* pages/questions.wxss */
+.container{
+    height: auto;
+}
 .questionWrapper{
     width: calc(100% - 30px);
     margin: 0 15px;
@@ -17,5 +20,5 @@
 .btn-question{
     width: 220rpx;
     height: 80rpx;
-    margin-top: 40px;
+    margin: 30px 0;
 }
