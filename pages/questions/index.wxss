@@ -1,0 +1,21 @@
+/* pages/questions.wxss */
+.questionWrapper{
+    width: calc(100% - 30px);
+    margin: 0 15px;
+    padding: 20px  0;
+    border-bottom:2px solid #c7c7c7; 
+}
+.questionWrapper .title{
+    font-size: 18px;
+    color: #353434;
+    font-weight: 600
+}
+.questionWrapper .content{
+    font-size: 16px;
+    color: #6d6d6d;
+}
+.btn-question{
+    width: 220rpx;
+    height: 80rpx;
+    margin-top: 40px;
+}

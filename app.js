@@ -7,7 +7,6 @@ App({
         logs.unshift(Date.now())
         wx.setStorageSync('logs', logs)
     },
-
     getUserInfo: function (cb) {
         var that = this
         if (this.globalData.userInfo) {
@@ -55,7 +54,7 @@ App({
                                     method: 'GET',
                                     success: function (res) {
                                         resolve(res);
-                                        // cosnole.log(res)
+                                        console.log(res)
                                         // that.globalData.openid = res.data.openid
                                         // that.globalData.firstLogin = res.data.firstLogin
                                         // that.globalData.stepInfoList = res.data.stepInfoList

@@ -1,0 +1,20 @@
+.container{
+    padding: 15px;
+}
+input{
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #be212c;
+    border-radius: 4px;
+    padding:0 20rpx;
+    box-sizing: border-box;
+}
+.placeholder{
+    color: #be212c;
+    font-size: 28rpx;
+}
+.btn-submit{
+     width: 220rpx;
+    height: 80rpx;
+    margin-top: 50px;
+}

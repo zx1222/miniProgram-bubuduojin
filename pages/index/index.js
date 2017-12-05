@@ -70,7 +70,6 @@ Page({
     },
 
     onLoad: function () {
-        console.log('aa')
         var that = this
         //获取系统信息  
         wx.getSystemInfo({
@@ -99,6 +98,7 @@ Page({
                     identification: res.data.identification,
                     firstSign: res.data.firstSign
                 })
+                wx.setStorageSync('openid', res.data.openid)
                 // 设置绘制折线图参数
                 var options = {
                     w: that.data.windowWidth,
@@ -130,7 +130,6 @@ Page({
                 })
                 lineChart(that.data.chartOptions.w, that.data.chartOptions.h, that.data.chartOptions.id, that.data.chartOptions.stepList, that.data.chartOptions.categories, that.data.chartOptions.steps);
 
-                
                 // 给后端传用户信息
                 var obj_base64 = new fun_base64.Base64();
                 var openid = obj_base64.encode(res.data.openid);
@@ -157,43 +156,7 @@ Page({
             });
         })
     },
-
-    // onShow: function () {
-    //     var that=this
-    //     app.getUserData().then(function (res) {
-    //         console.log(that.data.stepInfoList)
-    //         var options = {
-    //             w: that.data.windowWidth,
-    //             h: 200,
-    //             id: 'canvas-line',
-    //             stepList: that.data.stepInfoList,
-    //             categories: [
-    //                 that.data.stepInfoList[23].timestamp,
-    //                 that.data.stepInfoList[24].timestamp,
-    //                 that.data.stepInfoList[25].timestamp,
-    //                 that.data.stepInfoList[26].timestamp,
-    //                 that.data.stepInfoList[27].timestamp,
-    //                 that.data.stepInfoList[28].timestamp,
-    //                 that.data.stepInfoList[29].timestamp
-    //             ],
-    //             steps: [
-    //                 that.data.stepInfoList[23].step,
-    //                 that.data.stepInfoList[24].step,
-    //                 that.data.stepInfoList[25].step,
-    //                 that.data.stepInfoList[26].step,
-    //                 that.data.stepInfoList[27].step,
-    //                 that.data.stepInfoList[28].step,
-    //                 that.data.stepInfoList[29].step
-    //             ]
-    //         }
-    //         that.setData({
-    //             daily: ~~(that.data.stepInfoList[29].step / 5000),
-    //             chartOptions: options
-    //         })
-    //         lineChart(that.data.chartOptions.w, that.data.chartOptions.h, that.data.chartOptions.id, that.data.chartOptions.stepList, that.data.chartOptions.categories, that.data.chartOptions.steps);
-    //     })
-    // },
-
+    // onReady:function(){},
     // 收下昨日结算
     receiveLogIn: function () {
         this.setData({
@@ -275,7 +238,7 @@ Page({
 
     // 签到历史
     showHistory: function () {
-        wx, wx.navigateTo({
+        wx.navigateTo({
             url: '../history/index'
         })
     },

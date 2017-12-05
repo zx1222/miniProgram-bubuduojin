@@ -187,6 +187,11 @@ Page({
             })
         }, 1500)
     },
+    showQuestions:function(){
+        wx, wx.navigateTo({
+            url: '../questions/index'
+        })
+    },
     // 全部徽章悬浮窗
     showBadge: function () {
         wx.navigateTo({

@@ -5,7 +5,9 @@
         "pages/discover/index",
         "pages/user/index",
         "pages/badge/index",
-        "pages/history/index"
+        "pages/history/index",
+        "pages/questions/index",
+        "pages/quiz/index"
     ],
     "window": {
         "backgroundTextStyle": "light",

@@ -3,7 +3,7 @@
         <!--banner  -->
         <view class='banner'>
             <image class="img-responsive banner-bg" src="../../assets/images/banner-user.jpg"></image>
-            <image class='btn-question' src='../../assets/images/btn-question.png' bindtap='showQuestion'></image>
+            <image class='btn-question' src='../../assets/images/btn-question.png' bindtap='showQuestions'></image>
             <image class='user-photo' src='{{userInfo.avatarUrl}}'></image>
             <text class='nickname text-m2 text-white'>{{userInfo.nickName}}</text>
         </view>
@@ -31,7 +31,7 @@
             <view class='wrapper'>
                 <text class='text-red text-m2 title'>收支明细</text>
                 <view class='listView'>
-                    <view class='item' wx:for='{{detailsList}}' >
+                    <view class='item' wx:for='{{detailsList}}' wx:key='{{index}}'>
                         <view class='l'>
                             <view class='text-m1'>{{item.score_rules}}</view>
                             <view class='text-ss'>{{item.score_time}}</view>

@@ -1,0 +1,6 @@
+<!--pages/quiz.wxml-->
+<view class='container'>
+    <input bindinput='binduser_mobile' bindblur='checkMobile' type='number' placeholder='手机号' placeholder-class="placeholder"></input>
+    <input bindinput='bindquestion_title' bindblur='checkQuestion' type='text' placeholder='遇到问题' placeholder-class="placeholder"></input>
+    <image src='../../assets/images/btn-submit.png' bindtap='submit' class='btn-submit'></image>
+</view>

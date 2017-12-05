@@ -1,0 +1,8 @@
+<!--pages/questions.wxml-->
+<view class='container' >
+    <view class='questionWrapper' wx:for='{{questions}}' wx:key='{{index}}'>
+    <view class='title'>Q{{index}} : {{item.title}}</view>
+      <text class='content'>{{item.content}}</text>
+    </view>    
+    <image class='btn-question'  src='../../assets/images/btn-quiz.png' bindtap='goQuiz'></image>
+</view>
