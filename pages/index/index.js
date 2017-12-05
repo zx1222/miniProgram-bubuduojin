@@ -98,7 +98,6 @@ Page({
                     identification: res.data.identification,
                     firstSign: res.data.firstSign
                 })
-                wx.setStorageSync('openid', res.data.openid)
                 // 设置绘制折线图参数
                 var options = {
                     w: that.data.windowWidth,

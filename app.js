@@ -55,23 +55,12 @@ App({
                                     success: function (res) {
                                         resolve(res);
                                         console.log(res)
-                                        // that.globalData.openid = res.data.openid
-                                        // that.globalData.firstLogin = res.data.firstLogin
-                                        // that.globalData.stepInfoList = res.data.stepInfoList
-                                        // that.globalData.identification = res.data.identification
-                                        // wx.setStorageSync(
-                                        //     'openid', res.data.openid
-                                        // )
-                                        // wx.setStorageSync(
-                                        //     'stepInfoList', res.data.stepInfoList
-                                        // )
                                         wx.setStorageSync(
                                             'identification', res.data.identification
                                         )
-                                        // wx.setStorageSync(
-                                        //     'firstSign', res.data.firstSign
-                                        // )
-                                        // console.log(wx.getStorageSync('firstSign'))
+                                        wx.setStorageSync(
+                                            'openid', res.data.openid
+                                        )
                                     }
                                 })
                             }
