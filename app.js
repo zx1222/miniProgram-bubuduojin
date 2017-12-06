@@ -46,7 +46,6 @@ App({
                                     iv: iv,
                                     grant_type: 'authorization_code'
                                 }
-                                console.log(data)
                                 wx.request({
                                     //获取用户数据接口
                                     url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/identify',
@@ -73,8 +72,8 @@ App({
     },
     globalData: {
         userInfo: null,
-        // openid: null,
-        // stepInfoList: null,
-        // identification: null
+        openid: null,
+        stepInfoList: [],
+        identification: null
     }
 })

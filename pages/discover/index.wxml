@@ -1,7 +1,39 @@
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"  indicator-color='{{indicatorColor}}' indicator-active-color='{{activeIndicatorColor}}'>
-        <block wx:for="{{imgUrls}}" wx:key='*this'>
-            <swiper-item>
-                <image src="{{item.banner}}" class="slide-image" width="355" height="150" />
-            </swiper-item>
-        </block>
-    </swiper>
+<!--轮播  -->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color='{{indicatorColor}}' indicator-active-color='{{activeIndicatorColor}}'>
+    <block wx:for="{{imgUrls}}" wx:key='*this'>
+        <swiper-item>
+            <image src="{{item.banner}}" class="slide-image" width="355" height="150" />
+        </swiper-item>
+    </block>
+</swiper>
+<!--活动列表  -->
+<!--活动分类标题  -->
+<view class='activities'>
+    <view class='activity-group'  wx:for='{{activities}}' wx:key='*this'>
+        <view class='group-name'>
+            <view class='decorate-l'>
+                <view class='l-c1 i-circle'></view>
+                <view class='l-c2 i-circle'></view>
+                <view class='l-c3 i-circle'></view>
+                <view class='l-c4 i-circle'></view>
+                <view class='l-c5 i-circle'></view>
+                <view class='l-c6 i-circle'></view>
+            </view>
+            <text class='text-gradient'>{{item.group_name}}</text>
+            <view class='decorate-r'>
+                <view class='r-c1 i-circle'></view>
+                <view class='r-c2 i-circle'></view>
+                <view class='r-c3 i-circle'></view>
+                <view class='r-c4 i-circle'></view>
+                <view class='r-c5 i-circle'></view>
+                <view class='r-c6 i-circle'></view>
+                <view class='r-c7 i-circle'></view>
+            </view>
+        </view>
+        <view class='group-body'>
+            <view class='list' wx:for='{{item.activity_list}}'>
+                {{item.activity_name}}
+            </view>
+        </view>
+    </view>
+</view>
