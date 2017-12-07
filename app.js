@@ -60,6 +60,9 @@ App({
                                         wx.setStorageSync(
                                             'openid', res.data.openid
                                         )
+                                        wx.setStorageSync(
+                                            'stepInfoList', res.data.stepInfoList
+                                        )
                                     }
                                 })
                             }
@@ -72,8 +75,5 @@ App({
     },
     globalData: {
         userInfo: null,
-        openid: null,
-        stepInfoList: [],
-        identification: null
     }
 })

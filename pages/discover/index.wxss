@@ -68,35 +68,35 @@
 }
 
 .r-c1 {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background: #e18786;
     right: 29%;
-    top: 65%;
+    top: 75%;
 }
 
 .r-c2 {
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     background: rgba(241, 179, 68, 0.4);
     right: 28%;
-    top: 35%;
+    top: 45%;
 }
 
 .r-c3 {
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     background: #e18786;
     right: 26%;
-    top: 52%;
+    top: 60%;
 }
 
 .r-c4 {
     width: 9px;
     height: 9px;
     background: #ef9f9e;
-    right: 22%;
-    top: 60%;
+    right: 21%;
+    top: 72%;
 }
 
 .r-c5 {
@@ -104,7 +104,7 @@
     height: 9px;
     background: rgba(247, 169, 33, 0.4);
     right: 23%;
-    top: 82%;
+    top: 98%;
 }
 
 .r-c6 {
@@ -112,20 +112,20 @@
     height: 10px;
     background: rgba(225, 135, 134, 0.5);
     right: 20%;
-    top: 30%;
+    top: 36%;
 }
 
 .r-c7 {
     width: 3px;
     height: 3px;
     background: #e15a5a;
-    right: 23%;
-    top: 80%;
+    right: 21.5%;
+    top: 86%;
 }
 
 .group-body {
     overflow: hidden;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .list {
@@ -138,7 +138,7 @@
 }
 
 .list image {
-    height: 190rpx;
+    height: 184rpx;
     display: block;
 }
 .list image.off{

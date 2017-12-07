@@ -84,78 +84,146 @@ Page({
             that.setData({
                 userInfo: userInfo,
             })
-            app.getUserData().then(function (res) {
-                console.log('获取openid成功:' + res.data.openid)
-                // 格式化日期
-                var stepInfoList = JSON.parse(res.data.stepInfoList).stepInfoList
-                for (var i = 0; i < stepInfoList.length; i++) {
-                    var time = stepInfoList[i].timestamp;
-                    stepInfoList[i].timestamp = commonObj.formateDate(new Date(time + 1000))
-                }
-                that.setData({
-                    openid: res.data.openid,
-                    stepInfoList: stepInfoList,
-                    identification: res.data.identification,
-                    firstSign: res.data.firstSign
-                })
-                // 设置绘制折线图参数
-                var options = {
-                    w: that.data.windowWidth,
-                    h: 200,
-                    id: 'canvas-line',
-                    stepList: that.data.stepInfoList,
-                    categories: [
-                        that.data.stepInfoList[23].timestamp,
-                        that.data.stepInfoList[24].timestamp,
-                        that.data.stepInfoList[25].timestamp,
-                        that.data.stepInfoList[26].timestamp,
-                        that.data.stepInfoList[27].timestamp,
-                        that.data.stepInfoList[28].timestamp,
-                        that.data.stepInfoList[29].timestamp
-                    ],
-                    steps: [
-                        that.data.stepInfoList[23].step,
-                        that.data.stepInfoList[24].step,
-                        that.data.stepInfoList[25].step,
-                        that.data.stepInfoList[26].step,
-                        that.data.stepInfoList[27].step,
-                        that.data.stepInfoList[28].step,
-                        that.data.stepInfoList[29].step
-                    ]
-                }
-                that.setData({
-                    daily: ~~(that.data.stepInfoList[29].step / 5000),
-                    chartOptions: options
-                })
-                lineChart(that.data.chartOptions.w, that.data.chartOptions.h, that.data.chartOptions.id, that.data.chartOptions.stepList, that.data.chartOptions.categories, that.data.chartOptions.steps);
 
-                // 给后端传用户信息
-                var obj_base64 = new fun_base64.Base64();
-                var openid = obj_base64.encode(res.data.openid);
-                var data = {
-                    userInfo: userInfo,
-                    openid: openid,
-                    identification: res.data.identification
+            // 异步
+            // app.getUserData().then(function (res) {
+            //     console.log('获取openid成功:' + res.data.openid)
+            //     // 格式化日期
+            //     var stepInfoList = JSON.parse(res.data.stepInfoList).stepInfoList
+            //     for (var i = 0; i < stepInfoList.length; i++) {
+            //         var time = stepInfoList[i].timestamp;
+            //         stepInfoList[i].timestamp = commonObj.formateDate(new Date(time + 1000))
+            //     }
+            //     that.setData({
+            //         openid: res.data.openid,
+            //         stepInfoList: stepInfoList,
+            //         identification: res.data.identification,
+            //         firstSign: res.data.firstSign
+            //     })
+            //     // 设置绘制折线图参数
+            //     var options = {
+            //         w: that.data.windowWidth,
+            //         h: 200,
+            //         id: 'canvas-line',
+            //         stepList: that.data.stepInfoList,
+            //         categories: [
+            //             that.data.stepInfoList[23].timestamp,
+            //             that.data.stepInfoList[24].timestamp,
+            //             that.data.stepInfoList[25].timestamp,
+            //             that.data.stepInfoList[26].timestamp,
+            //             that.data.stepInfoList[27].timestamp,
+            //             that.data.stepInfoList[28].timestamp,
+            //             that.data.stepInfoList[29].timestamp
+            //         ],
+            //         steps: [
+            //             that.data.stepInfoList[23].step,
+            //             that.data.stepInfoList[24].step,
+            //             that.data.stepInfoList[25].step,
+            //             that.data.stepInfoList[26].step,
+            //             that.data.stepInfoList[27].step,
+            //             that.data.stepInfoList[28].step,
+            //             that.data.stepInfoList[29].step
+            //         ]
+            //     }
+            //     that.setData({
+            //         daily: ~~(that.data.stepInfoList[29].step / 5000),
+            //         chartOptions: options
+            //     })
+            //     lineChart(that.data.chartOptions.w, that.data.chartOptions.h, that.data.chartOptions.id, that.data.chartOptions.stepList, that.data.chartOptions.categories, that.data.chartOptions.steps);
+
+            //     // 给后端传用户信息
+            //     var obj_base64 = new fun_base64.Base64();
+            //     var openid = obj_base64.encode(res.data.openid);
+            //     var data = {
+            //         userInfo: userInfo,
+            //         openid: openid,
+            //         identification: res.data.identification
+            //     }
+            //     wx.request({
+            //         url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/user-info',
+            //         data: data,
+            //         method: 'GET',
+            //         success: function (res) {
+            //             console.log(data)
+            //             if (res.data.code == 0) {
+            //                 that.setData({
+            //                     firstLogin: res.data.firstLogin
+            //                 })
+            //             }
+            //         }
+            //     })
+            // }, function (error) {
+            //     console.log(error)
+            // });
+        })
+        var openid = wx.getStorageSync('openid');
+        var stepInfoList = wx.getStorageSync('stepInfoList');
+        var identification = wx.getStorageSync('identification');
+        var stepInfoList = JSON.parse(stepInfoList).stepInfoList
+        for (var i = 0; i < stepInfoList.length; i++) {
+            var time = stepInfoList[i].timestamp;
+            stepInfoList[i].timestamp = commonObj.formateDate(new Date(time + 1000))
+        }
+        console.log(openid)
+        that.setData({
+            openid: openid,
+            stepInfoList: stepInfoList,
+            identification: identification
+        })
+        // 给后端传用户信息
+        var obj_base64 = new fun_base64.Base64();
+        var openid = obj_base64.encode(openid);
+        var data = {
+            userInfo: this.data.userInfo,
+            openid: openid,
+            identification: identification
+        }
+        wx.request({
+            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/user-info',
+            data: data,
+            method: 'GET',
+            success: function (res) {
+                console.log(data)
+                if (res.data.code == 0) {
+                    that.setData({
+                        firstLogin: res.data.firstLogin
+                    })
                 }
-                wx.request({
-                    url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/default/user-info',
-                    data: data,
-                    method: 'GET',
-                    success: function (res) {
-                        console.log(data)
-                        if (res.data.code == 0) {
-                            that.setData({
-                                firstLogin: res.data.firstLogin
-                            })
-                        }
-                    }
-                })
-            }, function (error) {
-                console.log(error)
-            });
+            }
         })
     },
-    // onReady:function(){},
+    onReady:function(){
+        // 设置绘制折线图参数
+        var options = {
+            w: this.data.windowWidth,
+            h: 200,
+            id: 'canvas-line',
+            stepList: this.data.stepInfoList,
+            categories: [
+                this.data.stepInfoList[23].timestamp,
+                this.data.stepInfoList[24].timestamp,
+                this.data.stepInfoList[25].timestamp,
+                this.data.stepInfoList[26].timestamp,
+                this.data.stepInfoList[27].timestamp,
+                this.data.stepInfoList[28].timestamp,
+                this.data.stepInfoList[29].timestamp
+            ],
+            steps: [
+                this.data.stepInfoList[23].step,
+                this.data.stepInfoList[24].step,
+                this.data.stepInfoList[25].step,
+                this.data.stepInfoList[26].step,
+                this.data.stepInfoList[27].step,
+                this.data.stepInfoList[28].step,
+                this.data.stepInfoList[29].step
+            ]
+        }
+        this.setData({
+            daily: ~~(this.data.stepInfoList[29].step / 5000),
+            chartOptions: options
+        })
+        lineChart(this.data.chartOptions.w, this.data.chartOptions.h, this.data.chartOptions.id, this.data.chartOptions.stepList, this.data.chartOptions.categories, this.data.chartOptions.steps);
+    },
     // 收下昨日结算
     receiveLogIn: function () {
         this.setData({

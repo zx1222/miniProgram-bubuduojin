@@ -1,4 +1,7 @@
 /* pages/questions.wxss */
+page{
+background: #efefef;
+}
 .container{
     height: auto;
 }
