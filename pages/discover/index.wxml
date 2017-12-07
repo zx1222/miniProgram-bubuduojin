@@ -9,7 +9,7 @@
 <!--活动列表  -->
 <!--活动分类标题  -->
 <view class='activities'>
-    <view class='activity-group'  wx:for='{{activities}}' wx:key='*this'>
+    <view class='activity-group' wx:for='{{activities}}' wx:key='*this'>
         <view class='group-name'>
             <view class='decorate-l'>
                 <view class='l-c1 i-circle'></view>
@@ -32,7 +32,7 @@
         </view>
         <view class='group-body'>
             <view class='list' wx:for='{{item.activity_list}}'>
-                {{item.activity_name}}
+                <image src='{{item.banner}}' class="{{item.on?'':'off'}} img-responsive"></image>
             </view>
         </view>
     </view>

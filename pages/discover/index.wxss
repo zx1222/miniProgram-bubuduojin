@@ -123,8 +123,24 @@
     top: 80%;
 }
 
+.group-body {
+    overflow: hidden;
+    margin-top: 10px;
+}
+
 .list {
     width: 50%;
     float: left;
     text-align: center;
+    padding: 1px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.list image {
+    height: 190rpx;
+    display: block;
+}
+.list image.off{
+ filter: grayscale(1);
 }

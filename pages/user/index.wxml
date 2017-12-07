@@ -18,7 +18,7 @@
                     <text class='text-s2'>徽章</text>
                 </view>
                 <view class='r'>
-                    <view class='count text-l2 text-red text-blod'>{{scoreCount}}
+                    <view class='count text-l2 text-red text-bold'>{{scoreCount}}
                         <text class='text-red text-m2 text-regular'>个</text>
                     </view>
                     <text class='text-s2'>丸</text>

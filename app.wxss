@@ -71,7 +71,9 @@ page{
 }
 
 /*字体大小结束 */
-
+.img-responsive{
+    width: 100%
+}
 /*动画 start  */
 @keyframes fadeIn {
   from {

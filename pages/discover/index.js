@@ -32,10 +32,18 @@ Page({
             url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/activity',
             method: 'GET',
             success: function (res) {
+                var timestamp = Date.parse(new Date())/1000;
                 var data=res.data
                 for(var i=0;i<data.length;i++){
                     data[i].group_name = that.formatName(data[i].group_name)
+                    for (var j = 0; j < data[i].activity_list.length;j++){
+                        if (data[i].activity_list[j].start_time <= timestamp && timestamp <= data[i].activity_list[j].end_time){
+                            data[i].activity_list[j].on=true
+                        }
+                        else data[i].activity_list[j].on = false
+                    }
                 }
+                console.log(data)
                 that.setData({
                     activities: data
                 })
