@@ -44,7 +44,7 @@
                         </view>
                     </view>
                     <!--正在加载的动画  -->
-                    <view class="weui-loadmore" hidden="{{hideLoadMore}}">
+                    <view class="weui-loadmore" wx:if="{{!hideLoadMore}}">
                         <view class="weui-loading"></view>
                         <view class="weui-loadmore__tips">正在加载</view>
                     </view>

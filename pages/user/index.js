@@ -3,16 +3,16 @@ var app = getApp()
 Page({
     data: {
         identification: wx.getStorageSync('identification'),
-        isScroll:true,
+        isScroll: true,
         userInfo: {},
         // 徽章总数量
         badgeCount: 0,
         // 积分总数量
         scoreCount: 0,
         // 收支明细
-        detailsList: [ ],
+        detailsList: [],
         // 正在加载的隐藏
-        hideLoadMore: true,
+        hideLoadMore: false,
         // 分页和每次加载显示的个数
         currentPage: 1,   // 设置加载的第几次，默认是第一次  
         pageCount: 0,
@@ -118,17 +118,17 @@ Page({
             }
         ],
         // 隐藏徽章详情
-        hideBadgeDetail:true,
-        currentBadge:{
+        hideBadgeDetail: true,
+        currentBadge: {
             name: '',
             content: '',
             url: '',
             id: null
         },
-        badgeArr:[],
-        badgeIndex:0,
+        badgeArr: [],
+        badgeIndex: 0,
 
-        hideQuestion:true
+        hideQuestion: true
     },
     onLoad: function (options) {
         var that = this;
@@ -138,19 +138,19 @@ Page({
                 userInfo: userInfo,
             })
         })
-        var data={
+        var data = {
             identification: this.data.identification,
-            currentPage:this.data.currentPage
+            currentPage: this.data.currentPage
         }
         wx.request({
             url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/my/score-record',
-            data:data,
-            success:function(res){
+            data: data,
+            success: function (res) {
                 that.setData({
-                    detailsList:res.data.items,
+                    detailsList: res.data.items,
                     badgeCount: res.data.items[0].badge,
                     scoreCount: res.data.items[0].scores,
-                    currentPage:res.data._meta.currentPage,
+                    currentPage: res.data._meta.currentPage,
                     pageCount: res.data._meta.pageCount
                 })
                 console.log(res.data)
@@ -179,17 +179,17 @@ Page({
         var that = this
         this.setData({
             hideLoadMore: false,
-            currentPage:this.data.currentPage+1
+            currentPage: this.data.currentPage + 1
         })
-        var data={
+        var data = {
             identification: this.data.identification,
             currentPage: this.data.currentPage
         }
-        wx.request({
-            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/my/score-record',
-            data: data,
-            success: function (res) {
-                if(that.data.currentPage<that.data.pageCount){
+        if (that.data.currentPage - 1 < that.data.pageCount) {
+            wx.request({
+                url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/my/score-record',
+                data: data,
+                success: function (res) {
                     var arr = that.data.detailsList;
                     arr = arr.concat(res.data.items)
                     that.setData({
@@ -197,15 +197,15 @@ Page({
                         hideLoadMore: false
                     })
                 }
-                else{
-                    that.setData({
-                        hideLoadMore: true
-                    })
-                }
-            }
-        })
+            })
+        }
+        else {
+            that.setData({
+                hideLoadMore: true
+            })
+        }
     },
-    showQuestions:function(){
+    showQuestions: function () {
         wx, wx.navigateTo({
             url: '../questions/index'
         })
@@ -217,39 +217,39 @@ Page({
         })
     },
     // 点击徽章显示详情
-    showBadgeDetail:function(e){
+    showBadgeDetail: function (e) {
         this.setData({
-            hideBadgeDetail:false
+            hideBadgeDetail: false
         })
-        var arr =[]
-        var badgeArr=[]
-        for (var i = 0; i < this.data.badgeList.length;i++){
-            for (var j = 0; j < this.data.badgeList[i].list.length;j++){
+        var arr = []
+        var badgeArr = []
+        for (var i = 0; i < this.data.badgeList.length; i++) {
+            for (var j = 0; j < this.data.badgeList[i].list.length; j++) {
                 arr.push(this.data.badgeList[i].list[j].id)
                 badgeArr.push({
                     name: this.data.badgeList[i].list[j].name,
                     content: this.data.badgeList[i].list[j].content,
                     url: this.data.badgeList[i].list[j].url,
                     desc: this.data.badgeList[i].list[j].desc,
-                    id: this. data.badgeList[i].list[j].id
+                    id: this.data.badgeList[i].list[j].id
                 })
             }
         }
         console.log(badgeArr)
         var index = arr.indexOf(e.target.dataset.key)
-       this.setData({
-           currentBadge: badgeArr[index],
-           badgeArr: badgeArr,
-           badgeIndex:index
-       })
+        this.setData({
+            currentBadge: badgeArr[index],
+            badgeArr: badgeArr,
+            badgeIndex: index
+        })
     },
-    slideRight:function(){
-        if (this.data.badgeIndex == this.data.badgeArr.length){
+    slideRight: function () {
+        if (this.data.badgeIndex == this.data.badgeArr.length) {
         }
-        else{
+        else {
             this.setData({
                 currentBadge: this.data.badgeArr[this.data.badgeIndex + 1],
-                badgeIndex:this.data.badgeIndex+1
+                badgeIndex: this.data.badgeIndex + 1
             })
         }
     },
@@ -263,7 +263,7 @@ Page({
             })
         }
     },
-    closeBadgeDetail:function(){
+    closeBadgeDetail: function () {
         this.setData({
             hideBadgeDetail: true
         })
