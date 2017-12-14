@@ -194,21 +194,16 @@ Page({
                     arr = arr.concat(res.data.items)
                     that.setData({
                         detailsList: arr,
+                        hideLoadMore: false
+                    })
+                }
+                else{
+                    that.setData({
                         hideLoadMore: true
                     })
                 }
-                console.log(arr)
             }
         })
-        // setTimeout(function () {
-        //     var arr = that.data.detailsList;
-        //     console.log(arr)
-        //     arr.push(arr[1],arr[2])
-        //     that.setData({
-        //         detailsList: arr,
-               
-        //     })
-        // }, 1500)
     },
     showQuestions:function(){
         wx, wx.navigateTo({
