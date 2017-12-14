@@ -14,8 +14,8 @@ Page({
         // 正在加载的隐藏
         hideLoadMore: true,
         // 分页和每次加载显示的个数
-        PageNum: 1,   // 设置加载的第几次，默认是第一次  
-        callbackcount: 5,
+        currentPage: 1,   // 设置加载的第几次，默认是第一次  
+        pageCount: 0,
         // 全部加载标识
         LoadingComplete: false,
 
@@ -139,16 +139,19 @@ Page({
             })
         })
         var data={
-            identification: this.data.identification
+            identification: this.data.identification,
+            currentPage:this.data.currentPage
         }
         wx.request({
             url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/my/score-record',
             data:data,
             success:function(res){
                 that.setData({
-                    detailsList:res.data.data,
-                    badgeCount: res.data.total.badge,
-                    scoreCount: res.data.total.scores
+                    detailsList:res.data.items,
+                    badgeCount: res.data.items[0].badge,
+                    scoreCount: res.data.items[0].scores,
+                    currentPage:res.data._meta.currentPage,
+                    pageCount: res.data._meta.pageCount
                 })
                 console.log(res.data)
             }
@@ -171,21 +174,41 @@ Page({
             wx.stopPullDownRefresh() //停止下拉刷新
         }, 1500);
     },
-    //     //上拉加载更多   
+    //    上拉加载更多   
     onReachBottom: function () {
         var that = this
         this.setData({
-            hideLoadMore: false
+            hideLoadMore: false,
+            currentPage:this.data.currentPage+1
         })
-        setTimeout(function () {
-            var arr = that.data.detailsList;
-            console.log(arr)
-            arr.push(arr[1],arr[2])
-            that.setData({
-                detailsList: arr,
-                hideLoadMore: true
-            })
-        }, 1500)
+        var data={
+            identification: this.data.identification,
+            currentPage: this.data.currentPage
+        }
+        wx.request({
+            url: 'http://192.168.0.189/net_sindcorp_anniutingwenzhen/web/sports/my/score-record',
+            data: data,
+            success: function (res) {
+                if(that.data.currentPage<that.data.pageCount){
+                    var arr = that.data.detailsList;
+                    arr = arr.concat(res.data.items)
+                    that.setData({
+                        detailsList: arr,
+                        hideLoadMore: true
+                    })
+                }
+                console.log(arr)
+            }
+        })
+        // setTimeout(function () {
+        //     var arr = that.data.detailsList;
+        //     console.log(arr)
+        //     arr.push(arr[1],arr[2])
+        //     that.setData({
+        //         detailsList: arr,
+               
+        //     })
+        // }, 1500)
     },
     showQuestions:function(){
         wx, wx.navigateTo({

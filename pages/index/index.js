@@ -84,6 +84,7 @@ Page({
             that.setData({
                 userInfo: userInfo,
             })
+            // console.log(userInfo)
 
             // 异步
             // app.getUserData().then(function (res) {
