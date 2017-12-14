@@ -6,6 +6,7 @@ App({
         var logs = wx.getStorageSync('logs') || []
         logs.unshift(Date.now())
         wx.setStorageSync('logs', logs)
+        this.getUserData()
     },
     getUserInfo: function (cb) {
         var that = this
@@ -62,6 +63,9 @@ App({
                                         )
                                         wx.setStorageSync(
                                             'stepInfoList', res.data.stepInfoList
+                                        )
+                                        wx.setStorageSync(
+                                            'firstSign', res.data.firstSign
                                         )
                                     }
                                 })

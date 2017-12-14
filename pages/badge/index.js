@@ -15,21 +15,24 @@ Page({
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 0
+                        id: 0,
+                        own:true
                     },
                     {
                         name: '始于足下2',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 1
+                        id: 1,
+                        own: true
                     },
                     {
                         name: '始于足下3',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 2
+                        id: 2,
+                        own: false
                     }
                 ]
             },
@@ -41,63 +44,72 @@ Page({
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 3
+                        id: 3,
+                        own: false
                     },
                     {
                         name: '始于足下5',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 4
+                        id: 4,
+                        own: false
                     },
                     {
                         name: '始于足下6',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 5
+                        id: 5,
+                        own: false
                     },
                     {
                         name: '始于足下',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 6
+                        id: 6,
+                        own: false
                     },
                     {
                         name: '始于足下',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 7
+                        id: 7,
+                        own: false
                     },
                     {
                         name: '始于足下',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 8
+                        id: 8,
+                        own: false
                     },
                     {
                         name: '始于足下',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 9
+                        id: 9,
+                        own: false
                     },
                     {
                         name: '始于足下',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 10
+                        id: 10,
+                        own: false
                     },
                     {
                         name: '始于足下',
                         content: '开启第一天计步',
                         url: '../../assets/images/badge.png',
                         desc: '我已达成了开启第一天记步的目标获得了“始于足下”徽章。',
-                        id: 11
+                        id: 11,
+                        own: false
                     }
                 ]
             }

@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+ <view class="container"> 
     <!--banner  -->
     <view class="banner">
         <image class="img-responsive banner-bg" src="../../assets/images/banner-run.jpg"></image>
@@ -51,4 +51,4 @@
         <image wx:if='{{invite}}' class='shade-invite' src='../../assets/images/shade-invite.png'></image>
         <image wx:if='{{invite}}' bindtap='closeInvite' class='btn-know' src='../../assets/images/btn-know.png'></image>
     </view>
-</view>
+ </view> 

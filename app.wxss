@@ -58,7 +58,7 @@ page{
         color: #faed1a;
 }
 .text-grey{
-    color: #717070;
+    color: #757373;
 }
 .text-darkgrey{
     color: #757373;

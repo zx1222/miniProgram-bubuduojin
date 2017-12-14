@@ -2,7 +2,7 @@
     "pages": [
         "pages/index/index",
         "pages/logs/logs",
-        "pages/discover/index",
+        "pages/activity/index",
         "pages/user/index",
         "pages/badge/index",
         "pages/history/index",
@@ -31,7 +31,7 @@
             {
                 "selectedIconPath": "assets/images/discover-active.png",
                 "iconPath": "assets/images/discover.png",
-                "pagePath": "pages/discover/index",
+                "pagePath": "pages/activity/index",
                 "text": "发现"
             },
             {

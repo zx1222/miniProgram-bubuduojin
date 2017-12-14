@@ -159,6 +159,7 @@ Page({
         var openid = wx.getStorageSync('openid');
         var stepInfoList = wx.getStorageSync('stepInfoList');
         var identification = wx.getStorageSync('identification');
+        var firstSign = wx.getStorageSync('firstSign');
         var stepInfoList = JSON.parse(stepInfoList).stepInfoList
         for (var i = 0; i < stepInfoList.length; i++) {
             var time = stepInfoList[i].timestamp;
@@ -168,8 +169,11 @@ Page({
         that.setData({
             openid: openid,
             stepInfoList: stepInfoList,
-            identification: identification
+            identification: identification,
+            firstSign: firstSign
         })
+        console.log(that.data.stepInfoList)
+        console.log(that.data.firstSign)
         // 给后端传用户信息
         var obj_base64 = new fun_base64.Base64();
         var openid = obj_base64.encode(openid);

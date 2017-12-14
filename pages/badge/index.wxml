@@ -10,9 +10,11 @@
                     <view class='title text-red text-m1'>{{item.categoryName}}</view>
                     <view class='item-wrapper'>
                         <view class='item' wx:for='{{item.list}}' wx:key='*this'>
-                            <image src='{{item.url}}' bindtap='showBadgeDetail' data-key='{{item.id}}'></image>
-                            <view class='text-s2 text-bold'>{{item.name}}</view>
-                            <text class='text-ss text-grey'>{{item.content}}</text>
+                            <image src='{{item.url}}' class="{{item.own?'':'off'}}" bindtap='showBadgeDetail' data-key='{{item.id}}'></image>
+                            <text class='text-s2 text-bold'>{{item.name}}
+                             <text class='text-ss text-grey'>{{item.content}}</text>
+                            </text>
+                           
                         </view>
                     </view>
                 </view>

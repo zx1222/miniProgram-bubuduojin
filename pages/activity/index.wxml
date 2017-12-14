@@ -31,7 +31,7 @@
             </view>
         </view>
         <view class='group-body'>
-            <view class='list' wx:for='{{item.activity_list}}'>
+            <view class='list' wx:for='{{item.activity_list}}'  wx:key='*this'>
                 <image src='{{item.banner}}' class="{{item.on?'':'off'}} img-responsive"></image>
             </view>
         </view>
